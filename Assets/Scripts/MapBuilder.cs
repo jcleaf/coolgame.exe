@@ -38,6 +38,11 @@ public class MapBuilder : MonoBehaviour
     [SerializeField]
     private float maxFloorRatio;
 
+    [SerializeField]
+    [Range(1f, 10f)]
+    [Tooltip("Scale of all the pieces.")]
+    private float scale;
+
     [SerializeField] private bool rebuild;
 #pragma warning restore 0649
 
@@ -251,9 +256,10 @@ public class MapBuilder : MonoBehaviour
     {
         GameObject tile = Instantiate(
                     prefab,
-                    transform.position + (Vector3.right * x * tileSize) + (-Vector3.forward * y * tileSize),
+                    transform.position + (Vector3.right * x * tileSize * scale) + (-Vector3.forward * y * tileSize * scale),
                     Quaternion.identity,
                     parent);
+        tile.transform.localScale *= scale;
 
         map[x, y] = new Tile(tile, x, y);
     }
@@ -263,9 +269,10 @@ public class MapBuilder : MonoBehaviour
         tile.isWall = isWall;
         tile.go = Instantiate(
                     prefab,
-                    transform.position + (Vector3.right * x * tileSize) + (-Vector3.forward * y * tileSize),
+                    transform.position + (Vector3.right * x * tileSize * scale) + (-Vector3.forward * y * tileSize * scale),
                     Quaternion.identity,
                     parent);
+        tile.go.transform.localScale *= scale;
     }
 
     private void CleanEdges()
