@@ -286,21 +286,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daba31f1ac35870419bd6a388f38598a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilePrefabs:
-  - {fileID: 114817000050180060, guid: 3d88edd1f07b6e64f8ef138053be6329, type: 2}
-  - {fileID: 114639788310778912, guid: b680e446636db224aa2820507f9e0e1b, type: 2}
-  - {fileID: 114618178174078742, guid: 1b36f4310a3ec714ba031482febd65ad, type: 2}
-  - {fileID: 114892064673142360, guid: f4b9e02f9d3dbbe478ee211487a76ad1, type: 2}
-  - {fileID: 114447317653857496, guid: a44f19ecb7f29a0419106fc392f6ff1a, type: 2}
-  - {fileID: 114061536458816398, guid: 6c2a1a3c3df803241acb596d1fbf0343, type: 2}
-  - {fileID: 114509783743357566, guid: a57c650490dbce444b1d7ea8e9180e1d, type: 2}
-  - {fileID: 114071391934898800, guid: 077196d19c649744c835998b8b2211c4, type: 2}
-  - {fileID: 114669900643251444, guid: 735548ffa9ca6d248bf6205cd85b3b7b, type: 2}
-  - {fileID: 114256075968315392, guid: a88c52176ce3ba44f957a36dacc340fd, type: 2}
-  - {fileID: 114873152750822224, guid: 0a3c805e4eddc2d47ac426c6012452ee, type: 2}
-  rows: 10
-  columns: 10
+  wall: {fileID: 1243591373226152, guid: 530d15c62765bc24a8ed6e2387551888, type: 2}
+  floor: {fileID: 1877025772587060, guid: 4c5755bfc3fb8b54598df7700765cfbc, type: 2}
   tileSize: 1
+  columns: 16
+  rows: 16
+  rebuild: 0
 --- !u!4 &1534604340
 Transform:
   m_ObjectHideFlags: 0
