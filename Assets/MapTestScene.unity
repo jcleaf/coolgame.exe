@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 462295096}
   - component: {fileID: 462295095}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Navmesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -257,12 +257,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 462295094}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 942664771}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &680431774
 GameObject:
@@ -345,6 +345,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &942664770
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 942664771}
+  m_Layer: 0
+  m_Name: Map
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &942664771
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 942664770}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 462295098}
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1534604338
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,12 +403,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wall: {fileID: 1243591373226152, guid: 530d15c62765bc24a8ed6e2387551888, type: 2}
   floor: {fileID: 1877025772587060, guid: 4c5755bfc3fb8b54598df7700765cfbc, type: 2}
+  exit: {fileID: 1243591373226152, guid: a6d729a87b4bf7d4e8a6b74101afd999, type: 2}
+  parent: {fileID: 942664771}
   tileSize: 1
   columns: 32
   rows: 32
-  branchWeights: 010000000a0000000300000001000000
-  minFloorRatio: 0.5
-  maxFloorRatio: 1
+  idealNumExits: 10
+  branchWeights: 01000000140000000300000001000000
+  minFloorRatio: 0.4
+  maxFloorRatio: 0.9
   rebuild: 0
 --- !u!4 &1534604340
 Transform:
