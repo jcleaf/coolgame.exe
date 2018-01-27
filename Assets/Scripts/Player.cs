@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-	private CharacterController _controller;
+    private Rigidbody _body;
 
     public float Speed = 10f;
     public float DashSpeed = 30f;
@@ -16,6 +16,7 @@ public class Player : MonoBehaviour {
     private float dashCooldown = 0;
 
     // Some default direction
+    private Vector3 moveDir = Vector3.zero;
     private Vector3 dashDir = new Vector3(1, 0, 0);
 
     public enum PlayerState {
@@ -23,10 +24,20 @@ public class Player : MonoBehaviour {
     }
 
 	void Start() {
-		_controller = GetComponent<CharacterController>();
+        _body = GetComponent<Rigidbody>();
 	}
-	
-	void Update () {
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Beacon")
+        {
+            // TODO: Trigger the beacon
+            Debug.Log("We're touching it");
+            _body.AddForce(10 * Vector3.up, ForceMode.VelocityChange);
+        }
+    }
+
+   void Update () {
         // State transitions
         switch (state) {
             case PlayerState.Walking:
@@ -47,17 +58,22 @@ public class Player : MonoBehaviour {
                 break;
         }
 
-        Vector3 moveDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        moveDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         if (moveDir.sqrMagnitude > 0.4) {
             dashDir = moveDir.normalized;
         }
-        switch (state) {
+	}
+
+    private void FixedUpdate()
+    {
+        switch (state)
+        {
             case PlayerState.Walking:
-                _controller.SimpleMove(moveDir * Speed);
+                _body.MovePosition(_body.position + moveDir * Speed * Time.fixedDeltaTime);
                 break;
             case PlayerState.Dashing:
-                _controller.SimpleMove(dashDir * DashSpeed);
+                _body.MovePosition(_body.position + dashDir * DashSpeed * Time.fixedDeltaTime);
                 break;
         }
-	}
+    }
 }
