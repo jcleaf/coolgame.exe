@@ -4,12 +4,12 @@ public class SuckOut : MonoBehaviour
 {
     public float suckStrength;
     public AnimationCurve distanceMultiplierCurve;
-    private float triggerSize;
+
+    private SphereCollider triggerCollider;
 
     void Awake()
     {
-        SphereCollider triggerCollider = GetComponent<SphereCollider>();
-        triggerSize = triggerCollider.radius * triggerCollider.transform.lossyScale.x;
+        triggerCollider = GetComponent<SphereCollider>();
     }
 
     void OnTriggerStay(Collider other)
@@ -18,7 +18,10 @@ public class SuckOut : MonoBehaviour
         {
             Vector3 offset = transform.position - other.transform.position;
             Vector3 suckDir = offset.normalized;
+            float triggerSize = triggerCollider.radius * triggerCollider.transform.lossyScale.x;
+
             float distanceMutliplier = distanceMultiplierCurve.Evaluate(offset.sqrMagnitude / (triggerSize * triggerSize));
+
             other.attachedRigidbody.AddForce(suckDir * suckStrength * distanceMutliplier * Time.fixedDeltaTime);
         }
     }

@@ -406,6 +406,7 @@ public class MapBuilder : MonoBehaviour
             Tile tile = potentialExits[exitIndeces[exits]];
             Destroy(tile.go);
             ReplaceGameObject(exit, tile, tile.pos.x, tile.pos.y, true);
+            tile.go.GetComponent<Exit>().levelManager = levelManager;
             ++exits;
         }
     }
