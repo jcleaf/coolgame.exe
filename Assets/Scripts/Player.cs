@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     private Rigidbody _body;
-
+	private Beacon beacon;
     public float Speed = 10f;
     public float DashSpeed = 30f;
     public float DashTime = 0.2f;
@@ -28,12 +28,13 @@ public class Player : MonoBehaviour {
 	}
 
     private void OnCollisionEnter(Collision collision)
-    {
+	{
+		
         if (collision.gameObject.tag == "Beacon")
         {
-            // TODO: Trigger the beacon
-            Debug.Log("We're touching it");
             _body.AddForce(10 * Vector3.up, ForceMode.VelocityChange);
+			beacon = collision.gameObject.GetComponent<Beacon> ();
+			beacon.activated = true;
         }
     }
 

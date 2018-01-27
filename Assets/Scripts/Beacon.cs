@@ -7,7 +7,7 @@ public class Beacon : MonoBehaviour {
 	Enemy enemy;
 	// Use this for initialization
 	void Start () {
-		activated = true;
+		activated = false;
 		enemy = null;
 	}
 	
@@ -15,11 +15,8 @@ public class Beacon : MonoBehaviour {
 	void Update () {
 		
 	}
-	public void beaconActivation(bool activation){
-		activated = activation;
-	}
 	void OnTriggerEnter(Collider col){
-		if (col.gameObject.name == "Enemy" && activated) {
+		if (col.gameObject.tag == "Enemy" && activated) {
 			enemy = col.gameObject.GetComponent<Enemy>();
 			enemy.playerDetected = true;
 		}
