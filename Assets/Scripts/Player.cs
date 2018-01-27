@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
+	public bool dead;
     private Rigidbody _body;
 	private Beacon beacon;
     public float Speed = 10f;
@@ -25,14 +26,21 @@ public class Player : MonoBehaviour {
 
 	void Start() {
         _body = GetComponent<Rigidbody>();
+		dead = false;
 	}
 
     private void OnCollisionEnter(Collision collision)
 	{
-		
+		Debug.Log (collision.gameObject.tag);
+		if (collision.gameObject.tag == "Enemy") {
+			Enemy enemy = collision.gameObject.GetComponent<Enemy> ();
+			if (enemy.playerDetected) {
+				dead = true;
+			}
+		}
         if (collision.gameObject.tag == "Beacon")
         {
-            _body.AddForce(10 * Vector3.up, ForceMode.VelocityChange);
+//            _body.AddForce(10 * Vector3.up, ForceMode.VelocityChange);
 			beacon = collision.gameObject.GetComponent<Beacon> ();
 			beacon.activated = true;
         }

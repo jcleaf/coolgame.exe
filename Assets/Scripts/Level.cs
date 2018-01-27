@@ -14,8 +14,9 @@ public class Level : MonoBehaviour
 
     public Transform player;
     public List<Transform> enemies;
-    public List<Transform> beacons;
+	public List<Beacon> beacons;
 
+	public bool levelFinished;
 	// Use this for initialization
 	void Start()
 	{
@@ -34,11 +35,32 @@ public class Level : MonoBehaviour
         //    Transform beacon = Instantiate(enemyPrefab, new Vector3(pos.x, 1, pos.y), Quaternion.identity);
         //    beacons.Add(beacon);
         //}
+		GameObject[] gameObjectBeacons = GameObject.FindGameObjectsWithTag("Beacon");
+		for (int i = 0; i < gameObjectBeacons.Length; i++) {
+			beacons.Add(gameObjectBeacons[i].GetComponent<Beacon>());
+		}
+		levelFinished = false;
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		
+		if (BeaconsAreLitGondorCallsForAid ()) {
+			levelFinished = true;
+		}
+	}
+	bool BeaconsAreLitGondorCallsForAid(){
+		bool gondorCallsForAid = true;
+		foreach (var beacon in beacons) {
+			if (beacon.activated == false) {
+				gondorCallsForAid = false;
+				break;
+			}
+		}
+		return gondorCallsForAid;
+	}
+
+	void openAirlock(){
+	
 	}
 }
