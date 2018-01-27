@@ -112,7 +112,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: e82837afc273a4a62a67ee8b6d30c33b, type: 2}
 --- !u!1 &53194976
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +282,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4527788783431600, guid: d9ec24ed729a0493fbdc38df184180a4, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0.13
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4527788783431600, guid: d9ec24ed729a0493fbdc38df184180a4, type: 2}
       propertyPath: m_LocalRotation.x
@@ -319,6 +319,21 @@ Prefab:
     - target: {fileID: 4598167158939924, guid: d9ec24ed729a0493fbdc38df184180a4, type: 2}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 135103148827276272, guid: d9ec24ed729a0493fbdc38df184180a4,
+        type: 2}
+      propertyPath: m_Radius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 195008112963586600, guid: d9ec24ed729a0493fbdc38df184180a4,
+        type: 2}
+      propertyPath: m_Height
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 195008112963586600, guid: d9ec24ed729a0493fbdc38df184180a4,
+        type: 2}
+      propertyPath: m_BaseOffset
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d9ec24ed729a0493fbdc38df184180a4, type: 2}
@@ -478,7 +493,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!23 &1792749986
 MeshRenderer:
@@ -543,7 +558,7 @@ Transform:
   m_GameObject: {fileID: 1792749985}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3.3383067, y: 3.3383071, z: 3.3383071}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
