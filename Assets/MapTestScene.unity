@@ -289,8 +289,11 @@ MonoBehaviour:
   wall: {fileID: 1243591373226152, guid: 530d15c62765bc24a8ed6e2387551888, type: 2}
   floor: {fileID: 1877025772587060, guid: 4c5755bfc3fb8b54598df7700765cfbc, type: 2}
   tileSize: 1
-  columns: 16
-  rows: 16
+  columns: 32
+  rows: 32
+  branchWeights: 010000000a0000000300000001000000
+  minFloorRatio: 0.5
+  maxFloorRatio: 1
   rebuild: 0
 --- !u!4 &1534604340
 Transform:
