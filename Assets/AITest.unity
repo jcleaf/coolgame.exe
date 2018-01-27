@@ -400,6 +400,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activated: 0
+--- !u!4 &320996175 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4396186247429112, guid: 0082c9b2ddbaa44d9aee11c7a4670259,
+    type: 2}
+  m_PrefabInternal: {fileID: 95769033}
 --- !u!1001 &742621831
 Prefab:
   m_ObjectHideFlags: 0
@@ -490,6 +495,11 @@ Prefab:
     - target: {fileID: 1937695764156918, guid: d9ec24ed729a0493fbdc38df184180a4, type: 2}
       propertyPath: m_TagString
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 136345414046466076, guid: d9ec24ed729a0493fbdc38df184180a4,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d9ec24ed729a0493fbdc38df184180a4, type: 2}
@@ -586,6 +596,7 @@ GameObject:
   - component: {fileID: 1792749988}
   - component: {fileID: 1792749987}
   - component: {fileID: 1792749986}
+  - component: {fileID: 1792749990}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -661,6 +672,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1792749990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1792749985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0734aef750624d88bd3d9c9a1727ad4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 4396186247429112, guid: 0082c9b2ddbaa44d9aee11c7a4670259,
+    type: 2}
+  enemyPrefab: {fileID: 4527788783431600, guid: d9ec24ed729a0493fbdc38df184180a4,
+    type: 2}
+  beaconPrefab: {fileID: 4401551170266662, guid: f50051a524ed44648ac2a27eeecfa361,
+    type: 2}
+  player: {fileID: 320996175}
+  enemies: []
+  beacons: []
+  levelFinished: 0
 --- !u!1 &1829253916
 GameObject:
   m_ObjectHideFlags: 0
