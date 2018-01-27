@@ -4,50 +4,76 @@ using UnityEngine;
 using UnityEngine.AI;
 public class Enemy : MonoBehaviour {
 	GameObject player ;
-	NavMeshAgent nav; 
-	bool playerDetected;
-	GameObject self;
+	NavMeshAgent agent; 
+	public bool playerDetected;
+	public Vector3 lastPlayerSighting;
+
+	public float wanderRadius;
+	public float wanderTimer;
+	private float timer;
+
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find("Player");
-		self = GetComponent<GameObject>();
-		nav = GetComponent<NavMeshAgent>();
-		playerDetected = true;
+		agent = GetComponent<NavMeshAgent>();
+		playerDetected = false;
+		// Use this for initialization
+		timer = wanderTimer;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		// If the enemy and the player have health left...
-		if(LineOfSight(player.transform) && playerDetected)
-		{
-			// ... set the destination of the nav mesh agent to the player.
-			nav.SetDestination (player.transform.position);
-//			Vector3 distance = (player.transform.position - transform.position);
 
-//			nav.nextPosition = (nav.speed*Time.deltaTime)*distance.normalized;
+
+		// If the enemy and the player have health left...
+		if (playerDetected) {
+			if(LineOfSight(player.transform))
+			{
+				// ... set the destination of the nav mesh agent to the player.
+				agent.SetDestination (player.transform.position);
+				lastPlayerSighting = player.transform.position;
+				//			Vector3 distance = (player.transform.position - transform.position);
+
+				//			nav.nextPosition = (nav.speed*Time.deltaTime)*distance.normalized;
+			} else {
+				// ... disable the nav mesh agent.
+				Vector3 distanceToLastSighting = transform.position - lastPlayerSighting;
+				float distance = distanceToLastSighting.magnitude;
+				if(distance >= wanderRadius){
+					agent.SetDestination(lastPlayerSighting);
+				} else {
+					wander();
+				}
+
+			}
+		} else {
+			wander();
 		}
-		// Otherwise...
-		else
-		{
-			// ... disable the nav mesh agent.
-			if (self != null)
-				
-				nav.velocity = Vector3.zero;
-				nav.SetDestination (transform.position);
+
+
+	}
+	void wander(){
+		timer += Time.deltaTime;
+
+		if (timer >= wanderTimer) {
+			Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
+			agent.SetDestination(newPos);
+			timer = 0;
 		}
 	}
-	/*
-	void OnTriggerEnter(Collider col){
-		if (col.gameObject.name == "Player") {
-			playerDetected = true;
-		}
-	}
-	void OnTriggerExit(Collider col){
-		if (col.gameObject.name == "Player") {
-			playerDetected = false;
-		}
-	}
-	*/
+
+
+//	void OnTriggerEnter(Collider col){
+//		if (col.gameObject.name == "Player") {
+//			playerDetected = true;
+//		}
+//	}
+//	void OnTriggerExit(Collider col){
+//		if (col.gameObject.name == "Player") {
+//			playerDetected = false;
+//		}
+//	}
+
 	double fov = 360.0;
 	private RaycastHit hit;
 
@@ -58,5 +84,18 @@ public class Enemy : MonoBehaviour {
 			return true;
 		}
 		return false;
+	}
+
+
+	public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask) {
+		Vector3 randDirection = Random.insideUnitSphere * dist;
+
+		randDirection += origin;
+
+		NavMeshHit navHit;
+
+		NavMesh.SamplePosition (randDirection, out navHit, dist, layermask);
+
+		return navHit.position;
 	}
 }
