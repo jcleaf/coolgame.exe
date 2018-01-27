@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class MapBuilder : MonoBehaviour
 {
+    private const int MAX_NUM_TRIES = 20;
+
     [SerializeField] private GameObject wall;
     [SerializeField] private GameObject floor;
 
@@ -12,6 +15,20 @@ public class MapBuilder : MonoBehaviour
 
     [SerializeField] private int columns;
     [SerializeField] private int rows;
+
+    [Tooltip("Index corresponds to number of branches.")]
+    [SerializeField]
+    private int[] branchWeights;
+
+    [Tooltip("Minimum percentage of tiles that are floors not walls.")]
+    [Range(0.1f, 0.6f)]
+    [SerializeField]
+    private float minFloorRatio;
+
+    [Tooltip("Maximum percentage of tiles that are floors not walls.")]
+    [Range(0.1f, 1f)]
+    [SerializeField]
+    private float maxFloorRatio;
 
     [SerializeField] private bool rebuild;
 
@@ -42,10 +59,10 @@ public class MapBuilder : MonoBehaviour
     }
 
     private Tile[,] map;
-
-    private List<Tile> walls = new List<Tile>();
-
     private System.Random random;
+    private int floorCount;
+    private int maxFloorCount;
+    private int numTries;
 
     void Start()
     {
@@ -57,19 +74,40 @@ public class MapBuilder : MonoBehaviour
     {
         if (rebuild)
         {
-            foreach (Tile tile in map)
-            {
-                Destroy(tile.go);
-            }
-
-            Generate();
+            numTries = 0;
+            Rebuild();
             rebuild = false;
         }
     }
 
-    void Generate()
+    private void Rebuild()
+    {
+        if (numTries > MAX_NUM_TRIES)
+        {
+            Debug.LogError("Failed to create an adequate level!");
+            return;
+        }
+
+        foreach (Tile tile in map)
+        {
+            Destroy(tile.go);
+        }
+
+        Generate();
+    }
+
+    private void Generate()
     {
         map = new Tile[columns, rows];
+
+        floorCount = 0;
+        ++numTries;
+
+        int numTiles = rows * columns;
+        int minFloorCount = (int)(minFloorRatio * numTiles);
+        maxFloorCount = (int)(maxFloorRatio * numTiles);
+
+        Assert.IsTrue(maxFloorCount > minFloorCount);
 
         //make grid of walls
         for (int i = 0; i < rows; ++i)
@@ -83,10 +121,15 @@ public class MapBuilder : MonoBehaviour
         int startingX = Random.Range(0, columns);
         int startingY = Random.Range(0, rows);
 
-        Visit(new List<Tile>() { map[startingX, startingY] });
+        Visit(new List<Tile>() { map[startingX, startingY] }, 4);
+
+        if (floorCount < minFloorCount)
+        {
+            Rebuild();
+        }
     }
 
-    void Visit(List<Tile> tiles)
+    private void Visit(List<Tile> tiles, int numBranchesOverride = -1)
     {
         List<Tile> toVisit = new List<Tile>();
 
@@ -98,8 +141,40 @@ public class MapBuilder : MonoBehaviour
 
             Destroy(tile.go);
             ReplaceGameObject(floor, tile, x, y);
+            ++floorCount;
 
-            int branches = Random.Range(1, 3); //1-3 branches
+            //reached our max size; early out
+            if (floorCount >= maxFloorCount)
+            {
+                return;
+            }
+
+            //determine number of desired branches
+            int totalWeight = 0;
+            for (int i = 0; i < branchWeights.Length; ++i)
+            {
+                totalWeight += branchWeights[i];
+            }
+
+            int branches = numBranchesOverride;
+            if (branches < 0)
+            {
+                int rnd = Random.Range(0, totalWeight);
+
+                for (int i = 0; i < branchWeights.Length; ++i)
+                {
+                    int branchWeight = branchWeights[i];
+                    if (rnd < branchWeight)
+                    {
+                        branches = i;
+                        break;
+                    }
+
+                    rnd -= branchWeight;
+                }
+            }
+
+
             List<TilePos> neighbors = new List<TilePos>() { new TilePos(x - 1, y), new TilePos(x + 1, y), new TilePos(x, y - 1), new TilePos(x, y + 1) };
             List<int> neighborIndeces = Enumerable.Range(0, neighbors.Count).OrderBy(n => random.Next()).ToList();
 
@@ -116,7 +191,7 @@ public class MapBuilder : MonoBehaviour
                         --branches;
                     }
                 }
-                else if(IsValid(neighborPos.x, neighborPos.y))
+                else if (IsValid(neighborPos.x, neighborPos.y))
                 {
                     map[neighborPos.x, neighborPos.y].visited = true;
                 }
@@ -143,7 +218,7 @@ public class MapBuilder : MonoBehaviour
     {
         GameObject tile = Instantiate(
                     prefab,
-                    transform.position +(Vector3.right * x * tileSize) + (-Vector3.forward * y * tileSize),
+                    transform.position + (Vector3.right * x * tileSize) + (-Vector3.forward * y * tileSize),
                     Quaternion.identity);
 
         map[x, y] = new Tile(tile, x, y);
@@ -157,85 +232,8 @@ public class MapBuilder : MonoBehaviour
                     Quaternion.identity);
     }
 
-    /*
-    void Start()
+    private void CleanEdges()
     {
-        map = new ShipTile[columns, rows];
 
-        //build outsides
-        SpawnTile(tilePrefabs[(int)TileType.TLCorner], 0, 0);
-        SpawnTile(tilePrefabs[(int)TileType.TRCorner], columns - 1, 0);
-        SpawnTile(tilePrefabs[(int)TileType.BLCorner], 0, rows - 1);
-        SpawnTile(tilePrefabs[(int)TileType.BRCorner], columns - 1, rows - 1);
-
-        BuildOuterColumn(tilePrefabs[(int)TileType.LeftWall], 0);
-        BuildOuterColumn(tilePrefabs[(int)TileType.RightWall], columns - 1);
-        BuildOuterRow(tilePrefabs[(int)TileType.TopWall], 0);
-        BuildOuterRow(tilePrefabs[(int)TileType.BottomWall], rows - 1);
-
-        //build inside
-        System.Random random = new System.Random();
-        for (int row = 1; row < rows - 1; ++row)
-        {
-            for (int column = 1; column < columns - 1; ++column)
-            {
-
-                List<int> randomNumbers = Enumerable.Range(0, tilePrefabs.Length).OrderBy(x => random.Next()).ToList();
-
-                for (int k = 0; k < tilePrefabs.Length; ++k)
-                {
-                    ShipTile tile = SpawnTile(tilePrefabs[randomNumbers[k]], row, column);
-
-                    if ((!tile.hasTopWall || map[column, row - 1] == null || !map[column, row - 1].hasBottomWall) &&
-                        (!tile.hasBottomWall || map[column, row + 1] == null || !map[column, row + 1].hasTopWall) &&
-                        (!tile.hasLeftWall || map[column - 1, row] == null || !map[column - 1, row].hasRightWall) &&
-                        (!tile.hasRightWall || map[column + 1, row] == null || !map[column + 1, row].hasLeftWall))
-                    {
-                        break;
-                    }
-
-                    Destroy(tile.gameObject);
-
-                    if (k == tilePrefabs.Length - 1)
-                    {
-                        Debug.LogErrorFormat("Couldn't find a valid tile type at {0}, {1}!", column, row);
-                    }
-                }
-
-                if (map[column, row] == null)
-                {
-                    Debug.LogErrorFormat("Failed to spawn tile at {0}, {1}!", column, row);
-                }
-            }
-        }
     }
-
-    void BuildOuterColumn(ShipTile tile, int column)
-    {
-        for (int row = 1; row < rows - 1; ++row)
-        {
-            SpawnTile(tile, column, row);
-        }
-    }
-
-    void BuildOuterRow(ShipTile tile, int row)
-    {
-        for (int column = 1; column < columns - 1; ++column)
-        {
-            SpawnTile(tile, column, row);
-        }
-    }
-
-    private ShipTile SpawnTile(ShipTile tile, int column, int row)
-    {
-        ShipTile newTile = Instantiate(
-            tile,
-            transform.position + (Vector3.right * column * tileSize) + (-Vector3.forward * row * tileSize),
-            Quaternion.identity);
-
-        map[row, column] = newTile;
-
-        return newTile;
-    }
-    */
 }
