@@ -5,27 +5,159 @@ using UnityEngine;
 
 public class MapBuilder : MonoBehaviour
 {
-    [SerializeField] private ShipTile[] tilePrefabs;
-
-    [SerializeField] private int rows;
-    [SerializeField] private int columns;
+    [SerializeField] private GameObject wall;
+    [SerializeField] private GameObject floor;
 
     [SerializeField] private float tileSize;
 
-    private enum TileType
+    [SerializeField] private int columns;
+    [SerializeField] private int rows;
+
+    [SerializeField] private bool rebuild;
+
+    private class Tile
     {
-        TLCorner,
-        TRCorner,
-        BLCorner,
-        BRCorner,
-        TopWall,
-        BottomWall,
-        LeftWall,
-        RightWall
+        public bool visited;
+        public GameObject go;
+        public TilePos pos;
+
+        public Tile(GameObject go, int x, int y)
+        {
+            this.go = go;
+            visited = false;
+            pos = new TilePos(x, y);
+        }
     }
 
-    private ShipTile[,] map;
+    private struct TilePos
+    {
+        public int x;
+        public int y;
 
+        public TilePos(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+    private Tile[,] map;
+
+    private List<Tile> walls = new List<Tile>();
+
+    private System.Random random;
+
+    void Start()
+    {
+        random = new System.Random();
+        Generate();
+    }
+
+    void Update()
+    {
+        if (rebuild)
+        {
+            foreach (Tile tile in map)
+            {
+                Destroy(tile.go);
+            }
+
+            Generate();
+            rebuild = false;
+        }
+    }
+
+    void Generate()
+    {
+        map = new Tile[columns, rows];
+
+        //make grid of walls
+        for (int i = 0; i < rows; ++i)
+        {
+            for (int j = 0; j < columns; ++j)
+            {
+                Spawn(wall, j, i);
+            }
+        }
+
+        int startingX = Random.Range(0, columns);
+        int startingY = Random.Range(0, rows);
+
+        Visit(new List<Tile>() { map[startingX, startingY] });
+    }
+
+    void Visit(List<Tile> tiles)
+    {
+        List<Tile> toVisit = new List<Tile>();
+
+        foreach (Tile tile in tiles)
+        {
+            int x = tile.pos.x;
+            int y = tile.pos.y;
+            tile.visited = true;
+
+            Destroy(tile.go);
+            ReplaceGameObject(floor, tile, x, y);
+
+            int branches = Random.Range(1, 3); //1-3 branches
+            List<TilePos> neighbors = new List<TilePos>() { new TilePos(x - 1, y), new TilePos(x + 1, y), new TilePos(x, y - 1), new TilePos(x, y + 1) };
+            List<int> neighborIndeces = Enumerable.Range(0, neighbors.Count).OrderBy(n => random.Next()).ToList();
+
+
+            for (int i = 0; i < neighbors.Count; ++i)
+            {
+                TilePos neighborPos = neighbors[neighborIndeces[i]];
+
+                if (branches > 0)
+                {
+                    if (IsUnvisited(neighborPos.x, neighborPos.y))
+                    {
+                        toVisit.Add(map[neighborPos.x, neighborPos.y]);
+                        --branches;
+                    }
+                }
+                else if(IsValid(neighborPos.x, neighborPos.y))
+                {
+                    map[neighborPos.x, neighborPos.y].visited = true;
+                }
+            }
+        }
+
+        if (toVisit.Count > 0)
+        {
+            Visit(toVisit);
+        }
+    }
+
+    private bool IsUnvisited(int x, int y)
+    {
+        return IsValid(x, y) && !map[x, y].visited;
+    }
+
+    private bool IsValid(int x, int y)
+    {
+        return x >= 0 && y >= 0 && x < columns && y < rows;
+    }
+
+    private void Spawn(GameObject prefab, int x, int y)
+    {
+        GameObject tile = Instantiate(
+                    prefab,
+                    transform.position +(Vector3.right * x * tileSize) + (-Vector3.forward * y * tileSize),
+                    Quaternion.identity);
+
+        map[x, y] = new Tile(tile, x, y);
+    }
+
+    private void ReplaceGameObject(GameObject prefab, Tile tile, int x, int y)
+    {
+        tile.go = Instantiate(
+                    prefab,
+                    transform.position + (Vector3.right * x * tileSize) + (-Vector3.forward * y * tileSize),
+                    Quaternion.identity);
+    }
+
+    /*
     void Start()
     {
         map = new ShipTile[columns, rows];
@@ -105,4 +237,5 @@ public class MapBuilder : MonoBehaviour
 
         return newTile;
     }
+    */
 }
