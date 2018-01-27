@@ -53,10 +53,10 @@ public class Player : MonoBehaviour {
         }
         switch (state) {
             case PlayerState.Walking:
-                _controller.Move(moveDir * Time.deltaTime * Speed);
+                _controller.SimpleMove(moveDir * Speed);
                 break;
             case PlayerState.Dashing:
-                _controller.Move(dashDir * Time.deltaTime * DashSpeed);
+                _controller.SimpleMove(dashDir * DashSpeed);
                 break;
         }
 	}
