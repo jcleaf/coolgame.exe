@@ -9,6 +9,8 @@ public class MapBuilder : MonoBehaviour
     private const int MAX_NUM_TRIES = 20;
 
 #pragma warning disable 0649
+    [SerializeField] private Level levelManager;
+
     [SerializeField] private GameObject wall;
     [SerializeField] private GameObject floor;
     [SerializeField] private GameObject exit;
@@ -75,13 +77,15 @@ public class MapBuilder : MonoBehaviour
     private int numTries;
 
     private List<Tile> potentialExits;
+    private List<Transform> spawnPoints;
 
     void Start()
     {
         random = new System.Random();
         potentialExits = new List<Tile>();
+        spawnPoints = new List<Transform>();
         Generate();
-        CleanEdges();
+        Finish();
     }
 
     void Update()
@@ -90,9 +94,16 @@ public class MapBuilder : MonoBehaviour
         {
             numTries = 0;
             Rebuild();
-            CleanEdges();
+            Finish();
             rebuild = false;
         }
+    }
+
+    private void Finish()
+    {
+        CleanEdges();
+        AddExits();
+        levelManager.SpawnEntities(spawnPoints);
     }
 
     private void Rebuild()
@@ -108,12 +119,16 @@ public class MapBuilder : MonoBehaviour
             Destroy(tile.go);
         }
 
+        spawnPoints.Clear();
+        levelManager.DestroyEnemeies();
+
         Generate();
     }
 
     private void Generate()
     {
         map = new Tile[columns, rows];
+        
 
         floorCount = 0;
         ++numTries;
@@ -156,6 +171,7 @@ public class MapBuilder : MonoBehaviour
 
             Destroy(tile.go);
             ReplaceGameObject(floor, tile, x, y);
+            spawnPoints.Add(tile.go.transform);
             ++floorCount;
 
             //reached our max size; early out
@@ -292,8 +308,6 @@ public class MapBuilder : MonoBehaviour
                 }
             }
         }
-
-        AddExits();
     }
 
     private List<Tile> CheckNeighbors(Tile from, int x, int y, bool diagonals = true)
