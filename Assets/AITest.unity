@@ -335,6 +335,11 @@ Prefab:
       propertyPath: m_BaseOffset
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 135660152602829124, guid: d9ec24ed729a0493fbdc38df184180a4,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d9ec24ed729a0493fbdc38df184180a4, type: 2}
   m_IsPrefabParent: 0
