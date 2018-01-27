@@ -50,21 +50,40 @@ public class Level : MonoBehaviour
 
     public void SpawnEntities(List<Transform> spawnPoints)
     {
-        player = Instantiate(playerPrefab, spawnPoints[Random.Range(0, spawnPoints.Count)].position, Quaternion.identity);
+        Vector3 heightOffset = 1f * Vector3.up;
+        player = Instantiate(
+            playerPrefab,
+            spawnPoints[Random.Range(0, spawnPoints.Count)].position + heightOffset + GetRandomOffset(),
+            Quaternion.identity);
 
         for (int i = 0; i < numEnemies; i++)
         {
             int index = Random.Range(0, spawnPoints.Count);
-            Transform enemy = Instantiate(enemyPrefab, spawnPoints[index].position, Quaternion.identity);
+            Transform enemy = Instantiate(
+                enemyPrefab,
+                spawnPoints[index].position + heightOffset + GetRandomOffset(),
+                Quaternion.identity);
             enemies.Add(enemy);
         }
 
         for (int i = 0; i < numBeacons; i++)
         {
             int index = Random.Range(0, spawnPoints.Count);
-            Transform beacon = Instantiate(beaconPrefab, spawnPoints[index].position, Quaternion.identity);
+            Transform beacon = Instantiate(
+                beaconPrefab,
+                spawnPoints[index].position + heightOffset + GetRandomOffset(),
+                Quaternion.identity);
             enemies.Add(beacon);
         }
+    }
+
+    /**
+     * Some 2D random offset, just for moving along the plane
+     */
+    private Vector3 GetRandomOffset() {
+        Vector2 randomOffset2d = Random.insideUnitCircle;
+        Vector3 randomOffset = new Vector3(randomOffset2d.x, 0, randomOffset2d.y);
+        return randomOffset;
     }
 
     public void DestroyEnemeies()
