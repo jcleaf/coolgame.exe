@@ -36,14 +36,12 @@ public class Level : MonoBehaviour
 	}
 
 	bool BeaconsAreLitGondorCallsForAid(){
-		bool gondorCallsForAid = true;
 		foreach (var beacon in beacons) {
-			if (beacon.activated == false) {
-				gondorCallsForAid = false;
-				break;
+			if (!beacon.activated) {
+                return false;
 			}
 		}
-		return gondorCallsForAid;
+		return true;
 	}
 
 	void openAirlock(){
