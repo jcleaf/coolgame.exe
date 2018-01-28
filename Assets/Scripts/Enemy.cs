@@ -5,6 +5,8 @@ public class Enemy : MovingObject
 	GameObject player;
 	NavMeshAgent agent;
     Animator anim;
+    [SerializeField]
+    Reaction reaction;
 
 	public bool playerDetected;
 	public Vector3 lastPlayerSighting;
@@ -53,13 +55,14 @@ public class Enemy : MovingObject
         // If the enemy and the player have health left...
         if (playerDetected && agent.enabled) {
 			if(LineOfSight(player.transform))
-			{
+            {
 				// ... set the destination of the nav mesh agent to the player.
 				agent.SetDestination (player.transform.position);
 				lastPlayerSighting = player.transform.position;
 				//			Vector3 distance = (player.transform.position - transform.position);
 
 				//			nav.nextPosition = (nav.speed*Time.deltaTime)*distance.normalized;
+                reaction.Exclaim();
 			} else {
 				// ... disable the nav mesh agent.
 				Vector3 distanceToLastSighting = transform.position - lastPlayerSighting;
@@ -69,7 +72,7 @@ public class Enemy : MovingObject
 				} else {
 					wander();
 				}
-
+                reaction.Question();
 			}
 		} else {
 			//If got bumped

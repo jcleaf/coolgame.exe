@@ -150,8 +150,8 @@ MonoBehaviour:
   dead: 0
   Speed: 10
   DashSpeed: 30
-  DashTime: 0.15
-  DashCooldown: 0.1
+  DashTime: 0.3
+  DashCooldown: 0.2
   playerHealth:
     tryUseReferenceValue: 1
     referenceValue: {fileID: 11400000, guid: 604f548d506247e4393264098ef53ce4, type: 2}
