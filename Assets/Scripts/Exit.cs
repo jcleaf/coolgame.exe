@@ -23,6 +23,7 @@ public class Exit : MonoBehaviour
     }
 
     private bool open;
+    public bool IsOpen { get { return open; } }
     private GameObject suckOut;
     private float doorTimer;
 

@@ -143,10 +143,6 @@ public class Player : MovingObject
 					_dashaudio.Play ();
                     state = PlayerState.Dashing;
                     dashCount = DashTime; // something?
-                    if (instructionHandler)
-                    {
-                        Debug.Log(transform.position);
-                    }
                 }
                 break;
 			case PlayerState.Dashing:

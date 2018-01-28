@@ -280,6 +280,18 @@ MonoBehaviour:
   beaconPrefab: {fileID: 0}
   numEnemies: 0
   numBeacons: 0
+  beaconsLitRef:
+    tryUseReferenceValue: 1
+    referenceValue: {fileID: 0}
+    customValue: 0
+  beaconsLitNumRef:
+    tryUseReferenceValue: 1
+    referenceValue: {fileID: 0}
+    customValue: 0
+  numBeaconsRef:
+    tryUseReferenceValue: 1
+    referenceValue: {fileID: 0}
+    customValue: 0
   player: {fileID: 0}
   enemies: []
   beacons: []
@@ -495,6 +507,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  cameraOffset: 10
 --- !u!1001 &909223552
 Prefab:
   m_ObjectHideFlags: 0

@@ -10,6 +10,8 @@ public class InstructionHandler : MonoBehaviour
     private int airlockIndex = 0;
     private int beaconIndex = 0;
 
+    private GameObject lastAirlockInstruction;
+
     private string[] playerWords = {
         "Agent Zeta. If you can you hear me, press the arrow keys to move.",
         "Is your dash tech still active? Shift to trigger it.",
@@ -17,7 +19,7 @@ public class InstructionHandler : MonoBehaviour
         "When they're all activated, jump out of one of the airlocks. We'll take you to the next ship.",
     };
     private string[] airlockWords = {
-        "Airlocks active when you get near them. Which is... questionable design.",
+        "Airlocks activate when you get near them. Which is... questionable design.",
         "Don't get sucked out!"
     };
     private string[] beaconWords = {
@@ -36,21 +38,39 @@ public class InstructionHandler : MonoBehaviour
 
     public void AddNextPlayerInstruction(Vector3 pos) {
         if (playerIndex < playerWords.Length) {
-            AddInstruction(playerWords[playerIndex], pos);
+            AddInstruction(playerWords[playerIndex], pos + 3 * Vector3.up);
         }
         playerIndex ++;
     }
 
-    public void AddInstruction(string word, Vector3 position) {
-        var uiPos = position + 3 * Vector3.up;
+    public void AddAirlockInstruction(int index, Vector3 pos) {
+        if (index >= airlockIndex)
+        {
+            ClearAirlockInstruction();
+            airlockIndex = index;
+            if (index < airlockWords.Length)
+            {
+                lastAirlockInstruction = AddInstruction(airlockWords[index], pos + 4 * Vector3.up);
+            }
+        }
+    }
+
+    public void ClearAirlockInstruction() {
+        if (lastAirlockInstruction) {
+            DestroyObject(lastAirlockInstruction);;
+        }
+    }
+
+    public GameObject AddInstruction(string word, Vector3 position) {
         GameObject go = Instantiate(instructionPrefab, position, Quaternion.identity);
         var rectTransform = go.GetComponent<RectTransform>();
-        rectTransform.position = uiPos;
+        rectTransform.position = position;
 
         var texts = go.GetComponentsInChildren<UnityEngine.UI.Text>();
         foreach (var text in texts)
         {
             text.text = word;
         }
+        return go;
     }
 }
