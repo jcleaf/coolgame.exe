@@ -24,7 +24,7 @@ public class ProgressionInput : MonoBehaviour
         }
         else if ((submitPressed || resetPressed) && playerHealth <= 0 && !playerWon)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
+			progressionManager.RestartLevel ();
+		}
 	}
 }

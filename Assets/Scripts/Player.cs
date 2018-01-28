@@ -50,7 +50,7 @@ public class Player : MovingObject
     {
         base.Awake();
 		GameObject music = GameObject.Find("Audio Source");
-		_musicloop = GetComponent<MusicLoop> ();
+		_musicloop = music.GetComponent<MusicLoop> ();
         playerHealth.value = 100;
         playerWonRef.value = false;
     }
@@ -98,6 +98,7 @@ public class Player : MovingObject
                 playerHealth.value -= enemy.damage;
                 if (playerHealth <= 0)
                 {
+					_musicloop.otherSoundPlaying = true;
 					_deathaudio.Play();
 
                     dead = true;
@@ -217,6 +218,7 @@ public class Player : MovingObject
         if (beaconsLit)
         {
             playerWonRef.value = true;
+			_musicloop.otherSoundPlaying = true;
 			_winaudio.Play ();
 
         }
@@ -224,6 +226,7 @@ public class Player : MovingObject
         {
             playerHealth.value = 0;
 			if (!_spacedeath) {
+				_musicloop.otherSoundPlaying = true;
 				_spacedeathaudio.Play ();
 				_spacedeath = true;
 			}

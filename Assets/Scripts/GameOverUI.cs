@@ -7,17 +7,17 @@ public class GameOverUI : MonoBehaviour
     public BoolReference playerWon;
 
     private Image goBackground;
-    private Text goText;
+    private Text[] texts;
 
     void Awake()
     {
         goBackground = GetComponentInChildren<Image>();
-        goText = GetComponentInChildren<Text>();
+        texts = GetComponentsInChildren<Text>();
     }
 
     void Update()
     {
         goBackground.enabled = playerHealth <= 0 && !playerWon;
-        goText.enabled = playerHealth <= 0 && !playerWon;
+        foreach (Text text in texts) { text.enabled = playerHealth <= 0 && !playerWon; }
     }
 }
