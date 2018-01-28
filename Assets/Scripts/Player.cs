@@ -99,11 +99,11 @@ public class Player : MovingObject
             if (enemy.playerDetected && hurtCooldownCount <= 0)
             {
                 playerHealth.value -= enemy.damage;
-				cam.shakeDuration = 0.5f;
+                cam.shakeDuration = 0.5f;
                 if (playerHealth <= 0)
                 {
-					_musicloop.otherSoundPlaying = true;
-					_deathaudio.Play();
+                    _musicloop.otherSoundPlaying = true;
+                    _deathaudio.Play();
 
                     dead = true;
                     playerHealth.value = 0;

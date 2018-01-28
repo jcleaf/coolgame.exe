@@ -294,6 +294,7 @@ MonoBehaviour:
   wanderTimer: 1
   bumpedTimer: 1
   damage: 33
+  pushedStrength: 5
 --- !u!114 &114949729767774628
 MonoBehaviour:
   m_ObjectHideFlags: 1
