@@ -5,6 +5,8 @@ public class Enemy : MovingObject
 	GameObject player;
 	NavMeshAgent agent;
     Animator anim;
+    [SerializeField]
+    Reaction reaction;
 
 	public bool playerDetected;
 	public Vector3 lastPlayerSighting;
@@ -68,6 +70,7 @@ public class Enemy : MovingObject
 				//			Vector3 distance = (player.transform.position - transform.position);
 
 				//			nav.nextPosition = (nav.speed*Time.deltaTime)*distance.normalized;
+                reaction.Exclaim();
 			} else {
 				
 				// ... disable the nav mesh agent.
@@ -78,7 +81,7 @@ public class Enemy : MovingObject
 				} else {
 					wander();
 				}
-
+                reaction.Question();
 			}
 		} else {
 			//If got bumped

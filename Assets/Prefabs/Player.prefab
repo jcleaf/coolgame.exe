@@ -87,7 +87,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1473805979393518}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 8.13, y: 1.1484375, z: -3.677925}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4827614951760276}
@@ -555,8 +555,8 @@ MonoBehaviour:
   dead: 0
   Speed: 10
   DashSpeed: 30
-  DashTime: 0.15
-  DashCooldown: 0.1
+  DashTime: 0.3
+  DashCooldown: 0.2
   playerHealth:
     tryUseReferenceValue: 1
     referenceValue: {fileID: 11400000, guid: 604f548d506247e4393264098ef53ce4, type: 2}
@@ -573,6 +573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50fbb86fdd4d3414c9db40b835d836dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Offset: 1
 --- !u!136 &136377098023864476
 CapsuleCollider:
   m_ObjectHideFlags: 1

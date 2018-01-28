@@ -89,7 +89,7 @@ public class Level : MonoBehaviour
             int index = Random.Range(0, spawnPoints.Count);
             Beacon beacon = Instantiate<Beacon>(
                 beaconPrefab,
-                spawnPoints[index].position + heightOffset + GetRandomOffset() - Vector3.up,
+                spawnPoints[index].position + heightOffset + GetRandomOffset(),
                 Quaternion.identity,
                 beaconParent);
             beacons.Add(beacon);
