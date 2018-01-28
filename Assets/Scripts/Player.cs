@@ -64,6 +64,7 @@ public class Player : MovingObject
 					}
 					dead = true;
 					playerHealth.value = 0;
+                    _anim.SetTrigger("Die");
                 }
 			}
 		}
@@ -84,6 +85,10 @@ public class Player : MovingObject
 				_spacedeathaudio.Play ();
 				_spacedeath = true;
 			}
+            return;
+        }
+        if (dead) {
+            // Yep, no input here as well
             return;
         }
 

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 3e15dd07fdcc7426bacf8911c9100064
-timeCreated: 1517114271
+timeCreated: 1517129994
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -17,6 +17,9 @@ TextureImporter:
     21300020: Player 1_10
     21300022: Player 1_11
     21300024: Player 1_12
+    21300026: Player 1_13
+    21300028: Player 1_14
+    21300030: Player 1_15
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -276,6 +279,48 @@ TextureImporter:
         serializedVersion: 2
         x: 210
         y: 40
+        width: 30
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Player 1_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 10
+        width: 30
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Player 1_14
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 10
+        width: 30
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Player 1_15
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 10
         width: 30
         height: 30
       alignment: 7
