@@ -6,6 +6,13 @@ public class ProgressionInput : MonoBehaviour
     public IntReference playerHealth;
     public BoolReference playerWon;
 
+    private Progression progressionManager;
+
+    void Awake()
+    {
+        progressionManager = GameObject.FindGameObjectWithTag("Progression").GetComponent<Progression>();
+    }
+
 	void Update()
     {
         bool submitPressed = Input.GetButtonDown("Submit");
@@ -13,8 +20,7 @@ public class ProgressionInput : MonoBehaviour
 
         if (submitPressed && playerWon)
         {
-            //TODO: progress to next level
-            Debug.Log("PROGRESS");
+            progressionManager.NextLevel();
         }
         else if ((submitPressed || resetPressed) && playerHealth <= 0 && !playerWon)
         {
