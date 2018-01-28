@@ -10,6 +10,8 @@ public class Camera : MonoBehaviour
 
     public Transform title;
 
+    public IntReference levelNumber;
+
     // How long the object should shake for.
 	public float shakeDuration = 0f;
 
@@ -25,6 +27,15 @@ public class Camera : MonoBehaviour
 		shakeVert.y = 1.19175f;
 		shakeHoriz = Vector3.right;
 	}
+
+    void Start()
+    {
+        if (levelNumber.value != 0)
+        {
+            moveToPlayer = true;
+        }
+    }
+
 	// Update is called once per frame
 	void FixedUpdate()
 	{
@@ -44,13 +55,25 @@ public class Camera : MonoBehaviour
                 title.SetParent(null);
                 Destroy(title.gameObject, 1f);
             }
+
+            hadPlayer = true;
         }
 
         if (player && moveToPlayer)
         {
             Vector3 newPos = player.transform.position - cameraOffset * transform.forward;
 
-            transform.position = Vector3.Lerp(transform.position, newPos, 0.1f);
+            if (!hadPlayer)
+            {
+                transform.position = newPos;
+            }
+            else
+            {
+                transform.position = Vector3.Lerp(transform.position, newPos, 0.1f);
+            }
+            
+
+            
 
 			if (shakeDuration > 0) {
 				Vector2 rand = Random.insideUnitCircle * shakeAmount;
@@ -58,7 +81,9 @@ public class Camera : MonoBehaviour
 				transform.localPosition +=  newpos;
 
 				shakeDuration -= Time.deltaTime * decreaseFactor;
-			} 
+			}
+
+            hadPlayer = true;
         }
 	}
 }

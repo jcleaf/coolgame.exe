@@ -334,6 +334,10 @@ MonoBehaviour:
   cameraOffset: 16
   moveToPlayer: 0
   title: {fileID: 224593128935310730}
+  levelNumber:
+    tryUseReferenceValue: 1
+    referenceValue: {fileID: 11400000, guid: 60f2acf9aa0a2244aaf66247f957a8f5, type: 2}
+    customValue: 0
   shakeDuration: 0
   shakeAmount: 0.12
   decreaseFactor: 1
