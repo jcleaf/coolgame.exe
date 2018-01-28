@@ -23,8 +23,12 @@ public class Level : MonoBehaviour
 	private AudioSource winaudio;
 	public bool levelFinished;
 
+	public Progression progress;
+
     void Awake()
     {
+		numBeacons = progress.currentlevel.numBeacons;
+		numEnemies = progress.currentlevel.numEnemies;
 		winaudio = GetComponent<AudioSource> ();
         SceneManager.LoadScene(UI_SCENE_NAME, LoadSceneMode.Additive);
     }
