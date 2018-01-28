@@ -6,6 +6,8 @@ public class Beacon : MonoBehaviour
 {
 	[SerializeField] private bool _activated;
     [SerializeField] private Sprite activatedSprite;
+    [SerializeField] private SpriteRenderer ring;
+
 	private AudioSource src;
     public bool activated { get { return _activated; } }
 
@@ -40,9 +42,10 @@ public class Beacon : MonoBehaviour
     {
 		if (!_activated) {
 			src.Play ();
+            _activated = true;
+            spriteRenderer.sprite = activatedSprite;
+            ring.enabled = true;
 		}
-		_activated = true;
-        spriteRenderer.sprite = activatedSprite;
 
     }
 }
