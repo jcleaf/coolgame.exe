@@ -587,6 +587,16 @@ Prefab:
       propertyPath: m_HDR
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114397935247904930, guid: e4ba9f4d79a45634ea5492500c330360,
+        type: 2}
+      propertyPath: shakeAmount
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114397935247904930, guid: e4ba9f4d79a45634ea5492500c330360,
+        type: 2}
+      propertyPath: shakeDuration
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e4ba9f4d79a45634ea5492500c330360, type: 2}
   m_IsPrefabParent: 0

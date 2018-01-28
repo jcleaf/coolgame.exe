@@ -7,12 +7,7 @@ public class Camera : MonoBehaviour
     public float cameraOffset;
 
     private bool hadPlayer;
-
-	// Transform of the camera to shake. Grabs the gameObject's transform
-	// if null.
-	public Transform camTransform;
-
-	// How long the object should shake for.
+    // How long the object should shake for.
 	public float shakeDuration = 0f;
 
 	// Amplitude of the shake. A larger value shakes the camera harder.
