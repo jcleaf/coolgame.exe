@@ -24,6 +24,10 @@ public class Enemy : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        if (!agent.enabled)
+        {
+            return;
+        }
 
 		// If the enemy and the player have health left...
 		if (playerDetected) {
