@@ -51,8 +51,10 @@ public class Player : MovingObject
         }
     }
 
-   void Update ()
+    public override void Update ()
     {
+        base.Update();
+
         if (inSpace)
         {
             return;
@@ -108,5 +110,10 @@ public class Player : MovingObject
     {
         base.StopBeingSucked();
         GetComponent<Rigidbody>().drag = initialDrag;
+    }
+
+    public override Vector3 GetMoveDir()
+    {
+        return moveDir;
     }
 }

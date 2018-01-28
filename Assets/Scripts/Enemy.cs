@@ -36,9 +36,9 @@ public class Enemy : MovingObject
 	}
 
 	// Update is called once per frame
-	void Update () {
-
-        
+    public override void Update()
+    {
+        base.Update();
 
 		// If the enemy and the player have health left...
 		if (playerDetected) {
@@ -136,5 +136,9 @@ public class Enemy : MovingObject
         base.BeingSucked(suckForce);
 
         agent.enabled = false;
+    }
+
+    public override Vector3 GetMoveDir() {
+        return agent.velocity;
     }
 }
