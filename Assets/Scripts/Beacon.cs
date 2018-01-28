@@ -35,6 +35,8 @@ public class Beacon : MonoBehaviour
         {
             Enemy enemy = col.gameObject.GetComponent<Enemy>();
             enemy.playerDetected = true;
+            // The enemy will first check the beacon, so if they were on the other side of a wall they'll pathfind to get to the right place
+            enemy.lastPlayerSighting = transform.position;
         }
     }
 
