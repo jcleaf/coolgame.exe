@@ -6,7 +6,7 @@ public class Beacon : MonoBehaviour
 {
 	[SerializeField] private bool _activated;
     [SerializeField] private Sprite activatedSprite;
-    [SerializeField] private SpriteRenderer ring;
+    [SerializeField] private Renderer[] activatedVfx;
 
 	private AudioSource src;
     public bool activated { get { return _activated; } }
@@ -17,6 +17,11 @@ public class Beacon : MonoBehaviour
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 		src = GetComponent<AudioSource> ();
+
+        foreach (Renderer r in activatedVfx)
+        {
+            r.enabled = false;
+        }
 	}
 
     void OnTriggerEnter(Collider col)
@@ -46,7 +51,10 @@ public class Beacon : MonoBehaviour
 			src.Play ();
             _activated = true;
             spriteRenderer.sprite = activatedSprite;
-            ring.enabled = true;
+
+            foreach (Renderer r in activatedVfx) {
+                r.enabled = true;
+            }
 		}
 
     }
