@@ -9,13 +9,15 @@ public class Player : MovingObject
     public float Speed = 10f;
     public float DashSpeed = 30f;
     public float DashTime = 0.2f;
-    public float DashCooldown = 0.5f;
+    public float DashCooldownTime = 0.5f;
+    public float HurtCooldownTime = 1f;
 
     public IntReference playerHealth;
 
     public PlayerState state;
     private float dashCount = 0;
-    private float dashCooldown = 0;
+    private float dashCooldownCount = 0;
+    private float hurtCooldownCount = 0;
 
     // Some default direction
     private Vector3 moveDir = Vector3.zero;
@@ -52,26 +54,37 @@ public class Player : MovingObject
 
     private void OnCollisionEnter(Collision collision)
 	{
-		Debug.Log (collision.gameObject.tag);
-		if (collision.gameObject.tag == "Enemy") {
-			Enemy enemy = collision.gameObject.GetComponent<Enemy> ();
-			if (enemy.playerDetected) {
-                playerHealth.value -= enemy.damage;
-				_hurtaudio.Play ();
-                if (playerHealth <= 0) {
-					if (!dead) {
-						_deathaudio.Play ();
-					}
-					dead = true;
-					playerHealth.value = 0;
-                    _anim.SetTrigger("Die");
-                }
-			}
-		}
         if (collision.gameObject.tag == "Beacon")
         {
 			beacon = collision.gameObject.GetComponent<Beacon> ();
             beacon.Activate();
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+            if (enemy.playerDetected && hurtCooldownCount <= 0)
+            {
+                playerHealth.value -= enemy.damage;
+                if (playerHealth <= 0)
+                {
+                    if (!dead)
+                    {
+                        _deathaudio.Play();
+                    }
+                    dead = true;
+                    playerHealth.value = 0;
+                    _anim.SetTrigger("Die");
+                }
+                else
+                {
+                    _hurtaudio.Play();
+                    hurtCooldownCount = HurtCooldownTime;
+                }
+            }
         }
     }
 
@@ -92,12 +105,16 @@ public class Player : MovingObject
             return;
         }
 
+        if (hurtCooldownCount > 0) {
+            hurtCooldownCount -= Time.deltaTime;
+        }
+
         // State transitions
         switch (state) {
 			case PlayerState.Walking:
 
-				dashCooldown -= Time.deltaTime;
-                if (Input.GetButtonDown("Dash") && dashCooldown < 0)
+				dashCooldownCount -= Time.deltaTime;
+                if (Input.GetButtonDown("Dash") && dashCooldownCount <= 0)
                 {
 					_dashaudio.Play ();
                     state = PlayerState.Dashing;
@@ -106,9 +123,9 @@ public class Player : MovingObject
                 break;
 			case PlayerState.Dashing:
 				dashCount -= Time.deltaTime;
-                if (dashCount < 0) {
+                if (dashCount <= 0) {
                     state = PlayerState.Walking;
-                    dashCooldown = DashCooldown;
+                    dashCooldownCount = DashCooldownTime;
                     // TODO? Update the player input so the gravity and such makes sense?
                 }
                 break;

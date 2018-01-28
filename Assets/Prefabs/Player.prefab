@@ -134,7 +134,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b42fea772d274405088e797872658fcc, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.666
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -553,10 +553,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   graphics: {fileID: 4242701230654656}
   dead: 0
-  Speed: 10
-  DashSpeed: 30
+  Speed: 7
+  DashSpeed: 20
   DashTime: 0.3
-  DashCooldown: 0.2
+  DashCooldownTime: 0.3
+  HurtCooldownTime: 1
   playerHealth:
     tryUseReferenceValue: 1
     referenceValue: {fileID: 11400000, guid: 604f548d506247e4393264098ef53ce4, type: 2}

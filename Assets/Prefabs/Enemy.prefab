@@ -293,7 +293,7 @@ MonoBehaviour:
   wanderRadius: 5
   wanderTimer: 1
   bumpedTimer: 1
-  damage: 5
+  damage: 33
 --- !u!114 &114949729767774628
 MonoBehaviour:
   m_ObjectHideFlags: 1
