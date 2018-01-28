@@ -98,7 +98,7 @@ public class Player : MovingObject
         if (collision.gameObject.tag == "Enemy")
         {
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-            if (enemy.playerDetected && hurtCooldownCount <= 0)
+            if (enemy.playerDetected && hurtCooldownCount <= 0 && gameObject.layer != LayerMask.NameToLayer("Debris"))
             {
                 playerHealth.value -= enemy.damage;
                 cam.shakeDuration = 0.5f;

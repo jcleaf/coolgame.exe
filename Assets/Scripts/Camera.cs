@@ -33,6 +33,7 @@ public class Camera : MonoBehaviour
         if (levelNumber.value != 0)
         {
             moveToPlayer = true;
+            Destroy(title.gameObject, 1f);
         }
     }
 
