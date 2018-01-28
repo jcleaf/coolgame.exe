@@ -18,6 +18,8 @@ public class Level : MonoBehaviour
     public int numBeacons;
 
     public BoolReference beaconsLitRef;
+    public IntReference beaconsLitNumRef;
+    public IntReference numBeaconsRef;
 
     public Transform player;
     public List<Transform> enemies;
@@ -36,6 +38,8 @@ public class Level : MonoBehaviour
         SceneManager.LoadScene(UI_SCENE_NAME, LoadSceneMode.Additive);
 
         beaconsLitRef.value = false;
+        beaconsLitNumRef.value = 0;
+        numBeaconsRef.value = numBeacons;
     }
 
 	// Update is called once per frame

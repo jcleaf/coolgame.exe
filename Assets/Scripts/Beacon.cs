@@ -7,6 +7,7 @@ public class Beacon : MonoBehaviour
 	[SerializeField] private bool _activated;
     [SerializeField] private Sprite activatedSprite;
     [SerializeField] private Renderer[] activatedVfx;
+    [SerializeField] private IntReference beaconsLit;
 
 	private AudioSource src;
     public bool activated { get { return _activated; } }
@@ -51,6 +52,7 @@ public class Beacon : MonoBehaviour
 			src.Play ();
             _activated = true;
             spriteRenderer.sprite = activatedSprite;
+            beaconsLit.value += 1;
 
             foreach (Renderer r in activatedVfx) {
                 r.enabled = true;
