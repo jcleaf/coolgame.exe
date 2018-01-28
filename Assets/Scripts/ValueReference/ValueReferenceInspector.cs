@@ -65,6 +65,9 @@ public class FloatReferenceInspector : ValueReferenceInspector<float> { }
 [CustomPropertyDrawer(typeof(IntReference))]
 public class IntReferenceInspector : ValueReferenceInspector<int> { }
 
+[CustomPropertyDrawer(typeof(BoolReference))]
+public class BoolReferenceInspector : ValueReferenceInspector<bool> { }
+
 [CustomPropertyDrawer(typeof(AnimationCurveReference))]
 public class AnimationCurveReferenceInspector : ValueReferenceInspector<AnimationCurve> { }
 
@@ -124,6 +127,9 @@ public class FloatValueInspector : ValueInspector<float> { }
 
 [CustomPropertyDrawer(typeof(FloatValue))]
 public class IntValueInspector : ValueInspector<int> { }
+
+[CustomPropertyDrawer(typeof(BoolValue))]
+public class BoolValueInspector : ValueInspector<bool> { }
 
 [CustomPropertyDrawer(typeof(AnimationCurveValue))]
 public class AnimationCurveValueInspector : ValueInspector<AnimationCurve> { }

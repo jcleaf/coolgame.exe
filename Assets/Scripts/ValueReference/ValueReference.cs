@@ -41,6 +41,7 @@ public abstract class ValueReference<T, TValue> where TValue : Value<T>
 //For Unity serialization
 [Serializable] public class FloatReference : ValueReference<float, FloatValue> { }
 [Serializable] public class IntReference : ValueReference<int, IntValue> { }
+[Serializable] public class BoolReference : ValueReference<bool, BoolValue> { }
 [Serializable] public class AnimationCurveReference : ValueReference<AnimationCurve, AnimationCurveValue> { }
 
 
