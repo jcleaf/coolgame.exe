@@ -397,7 +397,6 @@ public class MapBuilder : MonoBehaviour
 
     private void AddExits()
     {
-        Debug.LogFormat("{0} potential exits.", potentialExits.Count);
         List<int> exitIndeces = Enumerable.Range(0, potentialExits.Count).OrderBy(n => random.Next()).ToList();
 
         int exits = 0;
