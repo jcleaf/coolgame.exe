@@ -35,7 +35,7 @@ public class Exit : MonoBehaviour
 
         if (other.gameObject.tag == "Player" && levelManager.levelFinished)
         {
-            //TODO: YOU WIN!!!
+            Debug.Log("YOU WIN!!!!"); //TODO
         }
     }
 
