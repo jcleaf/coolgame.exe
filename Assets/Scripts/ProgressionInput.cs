@@ -17,14 +17,19 @@ public class ProgressionInput : MonoBehaviour
     {
         bool submitPressed = Input.GetButtonDown("Submit");
         bool resetPressed = Input.GetButtonDown("Reset");
+        bool escapePressed = Input.GetButtonDown("Cancel");
 
-        if (submitPressed && playerWon)
+        if (escapePressed)
+        {
+            Application.Quit();
+        }
+        else if (submitPressed && playerWon)
         {
             progressionManager.NextLevel();
         }
         else if ((submitPressed || resetPressed) && playerHealth <= 0 && !playerWon)
         {
-			progressionManager.RestartLevel ();
-		}
+            progressionManager.RestartLevel();
+        }
 	}
 }
