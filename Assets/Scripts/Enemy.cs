@@ -19,7 +19,6 @@ public class Enemy : MovingObject
 
     public int damage;
 
-    private Rigidbody rb;
     private float initialDrag;
 
 	// Use this for initialization
@@ -32,7 +31,6 @@ public class Enemy : MovingObject
 		timer = wanderTimer;
 		bumped = false;
 		btimer = bumpedTimer;
-        rb = GetComponent<Rigidbody>();
         initialDrag = rb.drag;
 	}
 
@@ -43,7 +41,9 @@ public class Enemy : MovingObject
 	}
 
 	// Update is called once per frame
-	void Update () {
+    public override void Update()
+    {
+        base.Update();
 
         if (inSpace)
         {
@@ -146,5 +146,9 @@ public class Enemy : MovingObject
         base.BeingSucked(suckForce);
 
         agent.enabled = false;
+    }
+
+    public override Vector3 GetMoveDir() {
+        return agent.velocity;
     }
 }
