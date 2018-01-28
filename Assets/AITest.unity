@@ -482,7 +482,7 @@ Prefab:
     - target: {fileID: 114669071999072226, guid: d9ec24ed729a0493fbdc38df184180a4,
         type: 2}
       propertyPath: playerDetected
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4598167158939924, guid: d9ec24ed729a0493fbdc38df184180a4, type: 2}
       propertyPath: m_LocalPosition.x
@@ -499,6 +499,11 @@ Prefab:
     - target: {fileID: 136345414046466076, guid: d9ec24ed729a0493fbdc38df184180a4,
         type: 2}
       propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114669071999072226, guid: d9ec24ed729a0493fbdc38df184180a4,
+        type: 2}
+      propertyPath: bumped
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -687,8 +692,9 @@ MonoBehaviour:
     type: 2}
   enemyPrefab: {fileID: 4527788783431600, guid: d9ec24ed729a0493fbdc38df184180a4,
     type: 2}
-  beaconPrefab: {fileID: 4401551170266662, guid: f50051a524ed44648ac2a27eeecfa361,
-    type: 2}
+  beaconPrefab: {fileID: 0}
+  numEnemies: 0
+  numBeacons: 0
   player: {fileID: 320996175}
   enemies: []
   beacons: []
