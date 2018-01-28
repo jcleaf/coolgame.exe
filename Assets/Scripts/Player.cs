@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Player : MonoBehaviour {
-
+public class Player : MovingObject
+{
 	public bool dead;
     private Rigidbody _body;
     private Animator _anim;
@@ -21,14 +19,19 @@ public class Player : MonoBehaviour {
     private Vector3 moveDir = Vector3.zero;
     private Vector3 dashDir = new Vector3(1, 0, 0);
 
-    public enum PlayerState {
+    private float initialDrag;
+
+    public enum PlayerState
+    {
         Walking, Dashing
     }
 
-	void Start() {
+	void Start()
+    {
         _body = GetComponent<Rigidbody>();
         _anim = GetComponentInChildren<Animator>();
 		dead = false;
+        initialDrag = GetComponent<Rigidbody>().drag;
 	}
 
     private void OnCollisionEnter(Collision collision)
@@ -48,7 +51,13 @@ public class Player : MonoBehaviour {
         }
     }
 
-   void Update () {
+   void Update ()
+    {
+        if (inSpace)
+        {
+            return;
+        }
+
         // State transitions
         switch (state) {
             case PlayerState.Walking:
@@ -79,6 +88,11 @@ public class Player : MonoBehaviour {
 
     private void FixedUpdate()
     {
+        if (inSpace)
+        {
+            return;
+        }
+
         switch (state)
         {
             case PlayerState.Walking:
@@ -88,5 +102,11 @@ public class Player : MonoBehaviour {
                 _body.MovePosition(_body.position + dashDir * DashSpeed * Time.fixedDeltaTime);
                 break;
         }
+    }
+
+    public override void StopBeingSucked()
+    {
+        base.StopBeingSucked();
+        GetComponent<Rigidbody>().drag = initialDrag;
     }
 }
