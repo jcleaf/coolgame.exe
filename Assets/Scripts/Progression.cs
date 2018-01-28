@@ -10,7 +10,6 @@ public class Progression : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-		levelNum.value = 0;
 		updateLevelParams (levelParamsArray [levelNum.value]);
 		DontDestroyOnLoad (transform.gameObject);
 	}
@@ -57,4 +56,7 @@ public class Progression : MonoBehaviour {
         int scene = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(scene, LoadSceneMode.Single);
     }
+	void OnDestroy(){
+		levelNum.value = 0;
+	}
     }
