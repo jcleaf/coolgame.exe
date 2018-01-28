@@ -14,6 +14,10 @@ public class Enemy : MonoBehaviour {
 	public float wanderTimer;
 	private float timer;
 
+	private float btimer;
+	public float bumpedTimer;
+	private bool bumped;
+
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find("Player");
@@ -22,18 +26,24 @@ public class Enemy : MonoBehaviour {
 		playerDetected = false;
 		// Use this for initialization
 		timer = wanderTimer;
+		bumped = false;
+		btimer = bumpedTimer;
 	}
-	
+
+	void OnCollisionEnter(Collision col){
+		if (col.gameObject.name == player.name) {
+			bumped = true;
+		}
+	}
+
 	// Update is called once per frame
 	void Update () {
 
-        if (!agent.enabled)
-        {
-            return;
-        }
+        
 
 		// If the enemy and the player have health left...
 		if (playerDetected) {
+			agent.enabled = true;
 			if(LineOfSight(player.transform))
 			{
 				// ... set the destination of the nav mesh agent to the player.
@@ -54,7 +64,22 @@ public class Enemy : MonoBehaviour {
 
 			}
 		} else {
-			wander();
+			//If got bumped
+			if (bumped) {
+				agent.enabled = false;
+				Debug.Log (btimer);
+				btimer += Time.deltaTime;
+				if (btimer >= bumpedTimer) {
+					//go back to normal, remove bumped state. wander!
+					bumped = false;
+					agent.enabled = true;
+			      	btimer = 0;
+					wander ();
+				}
+			} else {
+				wander();
+			}
+
 		}
 
         anim.SetFloat("MoveSpeed", agent.velocity.sqrMagnitude);
