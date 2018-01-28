@@ -23,6 +23,12 @@ public class Player : MovingObject
 
     private float initialDrag;
 
+	private bool _spacedeath;
+	private AudioSource _spacedeathaudio;
+	private AudioSource _deathaudio;
+	private AudioSource _hurtaudio;
+	private AudioSource _walkaudio;
+	private AudioSource _dashaudio;
     public enum PlayerState
     {
         Walking, Dashing
@@ -30,6 +36,14 @@ public class Player : MovingObject
 
 	void Start()
     {
+		_spacedeath = false;
+		AudioSource[] audio =  GetComponents<AudioSource> ();
+		_spacedeathaudio = audio [0];
+		_deathaudio = audio [1];
+		_hurtaudio = audio [2];
+		_walkaudio = audio [3];
+		_dashaudio = audio [4];
+		playerHealth.value = 100;
         _body = GetComponent<Rigidbody>();
         _anim = GetComponentInChildren<Animator>();
 		dead = false;
@@ -43,9 +57,13 @@ public class Player : MovingObject
 			Enemy enemy = collision.gameObject.GetComponent<Enemy> ();
 			if (enemy.playerDetected) {
                 playerHealth.value -= enemy.damage;
-
-                if (playerHealth < 0) {
-                    dead = true;
+				_hurtaudio.Play ();
+                if (playerHealth <= 0) {
+					if (!dead) {
+						_deathaudio.Play ();
+					}
+					dead = true;
+					playerHealth.value = 0;
                 }
 			}
 		}
@@ -63,21 +81,27 @@ public class Player : MovingObject
 
         if (inSpace)
         {
+			if (!_spacedeath) {
+				_spacedeathaudio.Play ();
+				_spacedeath = true;
+			}
             return;
         }
 
         // State transitions
         switch (state) {
-            case PlayerState.Walking:
-                dashCooldown -= Time.deltaTime;
+			case PlayerState.Walking:
+
+				dashCooldown -= Time.deltaTime;
                 if (Input.GetButtonDown("Dash") && dashCooldown < 0)
                 {
+					_dashaudio.Play ();
                     state = PlayerState.Dashing;
                     dashCount = DashTime; // something?
                 }
                 break;
-            case PlayerState.Dashing:
-                dashCount -= Time.deltaTime;
+			case PlayerState.Dashing:
+				dashCount -= Time.deltaTime;
                 if (dashCount < 0) {
                     state = PlayerState.Walking;
                     dashCooldown = DashCooldown;
@@ -90,7 +114,9 @@ public class Player : MovingObject
         if (moveDir.sqrMagnitude > 0.4) {
             dashDir = moveDir.normalized;
         }
-
+		if (!_walkaudio.isPlaying && moveDir.sqrMagnitude > 0.0) {
+			_walkaudio.Play ();
+		}
         _anim.SetFloat("MoveSpeed", moveDir.sqrMagnitude);
         _anim.SetBool("Roll", state == PlayerState.Dashing);
 	}

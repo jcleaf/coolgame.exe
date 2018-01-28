@@ -8,11 +8,13 @@ public class Exit : MonoBehaviour
 
     [HideInInspector] public Level levelManager;
 
+	private AudioSource _dooraudio;
     private bool open;
     private GameObject suckOut;
 
     void Awake()
     {
+		_dooraudio = GetComponent<AudioSource> ();
         suckOut = GetComponentInChildren<SuckOut>().gameObject;
         suckOut.SetActive(false);
     }
@@ -46,6 +48,9 @@ public class Exit : MonoBehaviour
 
     private void ToggleOpenState(bool open)
     {
+		if (this.open != open) {
+			_dooraudio.Play();
+		}
         this.open = open;
         openCheckbox = open;
 
