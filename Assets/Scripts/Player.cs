@@ -63,6 +63,10 @@ public class Player : MovingObject
 
     private void OnCollisionStay(Collision collision)
     {
+        if (dead) {
+            // We're already dead. Please. No more.
+            return;
+        }
         if (collision.gameObject.tag == "Enemy")
         {
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
@@ -71,13 +75,12 @@ public class Player : MovingObject
                 playerHealth.value -= enemy.damage;
                 if (playerHealth <= 0)
                 {
-                    if (!dead)
-                    {
-                        _deathaudio.Play();
-                    }
+                    _deathaudio.Play();
                     dead = true;
                     playerHealth.value = 0;
                     _anim.SetTrigger("Die");
+                    // Make the player not fly around as much
+                    _body.drag = 50;
                 }
                 else
                 {
@@ -146,6 +149,10 @@ public class Player : MovingObject
     {
         if (inSpace)
         {
+            return;
+        }
+        if (dead) {
+            // Dead guys don't get to move
             return;
         }
 

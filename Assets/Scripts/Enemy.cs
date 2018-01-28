@@ -78,7 +78,6 @@ public class Enemy : MovingObject
 				float distance = distanceToLastSighting.magnitude;
 				if(distance >= wanderRadius){
 					agent.SetDestination(lastPlayerSighting);
-                    reaction.Exclaim();
 				} else {
                     reaction.Question();
 					wander();
