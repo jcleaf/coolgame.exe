@@ -9,10 +9,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b94961357f04746d8ab0dbe83262fb46, type: 3}
-  m_Name: LevelParams3
+  m_Name: LevelParams4
   m_EditorClassIdentifier: 
-  numBeacons: 6
-  numEnemies: 60
+  numBeacons: 8
+  numEnemies: 80
   tileSize: 1
   mapCol: 32
   mapRows: 32

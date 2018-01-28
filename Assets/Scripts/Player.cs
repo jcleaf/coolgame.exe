@@ -38,6 +38,8 @@ public class Player : MovingObject
 	private AudioSource _hurtaudio;
 	private AudioSource _walkaudio;
 	private AudioSource _dashaudio;
+	private AudioSource _winaudio;
+	private MusicLoop _musicloop;
 
     public enum PlayerState
     {
@@ -47,7 +49,8 @@ public class Player : MovingObject
     void Awake()
     {
         base.Awake();
-
+		GameObject music = GameObject.Find("Audio Source");
+		_musicloop = GetComponent<MusicLoop> ();
         playerHealth.value = 100;
         playerWonRef.value = false;
     }
@@ -61,6 +64,7 @@ public class Player : MovingObject
 		_hurtaudio = audio [2];
 		_walkaudio = audio [3];
 		_dashaudio = audio [4];
+		_winaudio = audio [5];
         _body = GetComponent<Rigidbody>();
         _anim = GetComponentInChildren<Animator>();
 		dead = false;
@@ -94,7 +98,8 @@ public class Player : MovingObject
                 playerHealth.value -= enemy.damage;
                 if (playerHealth <= 0)
                 {
-                    _deathaudio.Play();
+					_deathaudio.Play();
+
                     dead = true;
                     playerHealth.value = 0;
                     _anim.SetTrigger("Die");
@@ -116,10 +121,7 @@ public class Player : MovingObject
 
         if (inSpace)
         {
-			if (!_spacedeath) {
-				_spacedeathaudio.Play ();
-				_spacedeath = true;
-			}
+			
             return;
         }
         if (dead) {
@@ -219,10 +221,16 @@ public class Player : MovingObject
         if (beaconsLit)
         {
             playerWonRef.value = true;
+			_winaudio.Play ();
+
         }
         else
         {
             playerHealth.value = 0;
+			if (!_spacedeath) {
+				_spacedeathaudio.Play ();
+				_spacedeath = true;
+			}
         }
     }
 }

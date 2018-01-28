@@ -230,6 +230,10 @@ MonoBehaviour:
   activatedVfx:
   - {fileID: 212988698849227344}
   - {fileID: 212153235060635866}
+  beaconsLit:
+    tryUseReferenceValue: 1
+    referenceValue: {fileID: 11400000, guid: 9c286b2fec99f9c47ba91adf606bd563, type: 2}
+    customValue: 0
 --- !u!114 &114751969346295256
 MonoBehaviour:
   m_ObjectHideFlags: 1
