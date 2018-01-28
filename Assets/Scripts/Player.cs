@@ -107,6 +107,10 @@ public class Player : MovingObject
     public override void StopBeingSucked()
     {
         base.StopBeingSucked();
-        GetComponent<Rigidbody>().drag = initialDrag;
+
+        if (!inSpace)
+        {
+            GetComponent<Rigidbody>().drag = initialDrag;
+        }
     }
 }

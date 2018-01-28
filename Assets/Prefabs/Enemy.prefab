@@ -122,9 +122,7 @@ MonoBehaviour:
   lastPlayerSighting: {x: 0, y: 0, z: 0}
   wanderRadius: 5
   wanderTimer: 1
-  btimer: 0
   bumpedTimer: 1
-  bumped: 0
 --- !u!114 &114747480641377474
 MonoBehaviour:
   m_ObjectHideFlags: 1
