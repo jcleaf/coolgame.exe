@@ -33,6 +33,12 @@ public class InstructionHandler : MonoBehaviour
     }
 
     public void AddInstruction(string word, Vector3 position) {
+        var uiPos = position + 3 * Vector3.up;
         GameObject go = Instantiate(instructionPrefab, position, Quaternion.identity);
+        var rectTransform = go.GetComponent<RectTransform>();
+        rectTransform.position = uiPos;
+
+        var text = go.GetComponentInChildren<UnityEngine.UI.Text>();
+        text.text = word;
     }
 }
