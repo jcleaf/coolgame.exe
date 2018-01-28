@@ -8,6 +8,24 @@ public class Camera : MonoBehaviour
 
     private bool hadPlayer;
 
+	// Transform of the camera to shake. Grabs the gameObject's transform
+	// if null.
+	public Transform camTransform;
+
+	// How long the object should shake for.
+	public float shakeDuration = 0f;
+
+	// Amplitude of the shake. A larger value shakes the camera harder.
+	public float shakeAmount = 0.7f;
+	public float decreaseFactor = 1.0f;
+	private Vector3 shakeVert;
+	private Vector3 shakeHoriz;
+
+	void Awake(){
+		shakeVert = Vector3.forward;
+		shakeVert.y = 1.19175f;
+		shakeHoriz = Vector3.right;
+	}
 	// Update is called once per frame
 	void FixedUpdate()
 	{
@@ -30,6 +48,20 @@ public class Camera : MonoBehaviour
             }
             
             hadPlayer = true;
+
+			if (shakeDuration > 0) {
+				Vector2 rand = Random.insideUnitCircle * shakeAmount;
+				Vector3 newpos = rand.x * shakeHoriz + rand.y * shakeVert;
+				transform.localPosition +=  newpos;
+
+				shakeDuration -= Time.deltaTime * decreaseFactor;
+			} 
         }
+
+
 	}
+
+
+
+
 }
