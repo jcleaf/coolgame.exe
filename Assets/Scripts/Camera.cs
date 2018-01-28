@@ -35,7 +35,7 @@ public class Camera : MonoBehaviour
 
         if (player && !moveToPlayer)
         {
-            Vector3 newPos = player.transform.position - cameraOffset * transform.forward - Vector3.forward * 200f;
+            Vector3 newPos = player.transform.position - cameraOffset * transform.forward - Vector3.forward * 400f;
             transform.position = newPos;
 
             if (Input.GetButtonDown("Submit"))
