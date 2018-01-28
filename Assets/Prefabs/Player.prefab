@@ -293,9 +293,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e341a440d091143049a56de5115e0c33, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 24c4b64bb4dc541d8bf9fe4515a943c7, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.49
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -533,7 +533,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 537c16ca45b7d4118b6d2ffa4663bbce, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 4f2f785ec1c924eb2937720c50dad9a8, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.721
   m_Pitch: 1
@@ -639,6 +639,8 @@ MonoBehaviour:
   DashTime: 0.3
   DashCooldownTime: 0.3
   HurtCooldownTime: 1
+  WalkSfxTime: 0.2
+  WalkSfxCount: 0
   playerHealth:
     tryUseReferenceValue: 1
     referenceValue: {fileID: 11400000, guid: 604f548d506247e4393264098ef53ce4, type: 2}
