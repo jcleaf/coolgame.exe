@@ -11,6 +11,7 @@ public class InstructionHandler : MonoBehaviour
     private int beaconIndex = 0;
 
     private GameObject lastAirlockInstruction;
+    private GameObject lastBeaconInstruction;
 
     private string[] playerWords = {
         "Agent Zeta. If you can you hear me, press the arrow keys to move.",
@@ -43,7 +44,8 @@ public class InstructionHandler : MonoBehaviour
         playerIndex ++;
     }
 
-    public void AddAirlockInstruction(int index, Vector3 pos) {
+    public void AddAirlockInstruction(int index, Vector3 pos)
+    {
         if (index >= airlockIndex)
         {
             ClearAirlockInstruction();
@@ -55,9 +57,33 @@ public class InstructionHandler : MonoBehaviour
         }
     }
 
-    public void ClearAirlockInstruction() {
-        if (lastAirlockInstruction) {
-            DestroyObject(lastAirlockInstruction);;
+    public void ClearAirlockInstruction()
+    {
+        if (lastAirlockInstruction)
+        {
+            DestroyObject(lastAirlockInstruction); ;
+        }
+    }
+
+    public void AddBeaconInstruction(int index, Vector3 pos)
+    {
+        if (index >= beaconIndex)
+        {
+            ClearBeaconInstruction();
+            beaconIndex = index;
+            if (index < beaconWords.Length)
+            {
+                lastBeaconInstruction = AddInstruction(beaconWords[index], pos + 4 * Vector3.up);
+            }
+        }
+    }
+
+    public void ClearBeaconInstruction()
+    {
+        Debug.Log("ClearBeaconInstruction");
+        if (lastBeaconInstruction)
+        {
+            DestroyObject(lastBeaconInstruction); ;
         }
     }
 

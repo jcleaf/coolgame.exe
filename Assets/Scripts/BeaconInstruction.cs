@@ -1,26 +1,25 @@
 using UnityEngine;
 using System.Collections;
 
-public class DoorInstructionTrigger : MonoBehaviour
+public class BeaconInstruction : MonoBehaviour
 {
-
     private InstructionHandler instructionHandler;
-    private Exit exit;
+    private Beacon beacon;
     private bool lastOpenStatus = false;
 
-	// Use this for initialization
-	void Awake()
-	{
+    // Use this for initialization
+    void Awake()
+    {
         instructionHandler = GameObject.Find("InstructionHandler").GetComponent<InstructionHandler>();
-        exit = GetComponentInParent<Exit>();
-	}
+        beacon = GetComponentInParent<Beacon>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         // Try update instruction
         if (other.gameObject.tag == "Player")
         {
-            instructionHandler.AddAirlockInstruction(exit.IsOpen ? 1 : 0, transform.position);
+            instructionHandler.AddBeaconInstruction(beacon.activated ? 1 : 0, transform.position);
         }
     }
 
@@ -29,9 +28,10 @@ public class DoorInstructionTrigger : MonoBehaviour
         // Try update instruction
         if (other.gameObject.tag == "Player")
         {
-            if (lastOpenStatus != exit.IsOpen) {
-                instructionHandler.AddAirlockInstruction(exit.IsOpen ? 1 : 0, transform.position);
-                lastOpenStatus = exit.IsOpen;
+            if (lastOpenStatus != beacon.activated)
+            {
+                instructionHandler.AddBeaconInstruction(beacon.activated ? 1 : 0, transform.position);
+                lastOpenStatus = beacon.activated;
             }
         }
     }
@@ -41,12 +41,12 @@ public class DoorInstructionTrigger : MonoBehaviour
         // Instructions
         if (other.gameObject.tag == "Player")
         {
-            if (exit.IsOpen)
+            if (beacon.activated)
             {
                 // Somewhat ugly hack to make it so that it doesn't show stuff again.
-                instructionHandler.AddAirlockInstruction(2, transform.position);
+                instructionHandler.AddBeaconInstruction(2, transform.position);
             }
-            instructionHandler.ClearAirlockInstruction();
+            instructionHandler.ClearBeaconInstruction();
         }
     }
 }

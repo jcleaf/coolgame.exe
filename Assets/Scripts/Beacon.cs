@@ -28,11 +28,17 @@ public class Beacon : MonoBehaviour
     void OnTriggerEnter(Collider col)
     {
         TryUpdateEnemy(col);
+        //TryAddInstructions();
     }
 
     void OnTriggerStay(Collider col)
     {
         TryUpdateEnemy(col);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        //TryRemoveInstructions();
     }
 
     private void TryUpdateEnemy(Collider col)
