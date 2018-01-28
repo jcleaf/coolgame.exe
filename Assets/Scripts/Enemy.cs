@@ -22,6 +22,10 @@ public class Enemy : MovingObject
     public int damage;
 	private AudioSource _playerDetectedAudio;
 
+    public float pushedStrength;
+    private bool dashed;
+    private Vector3 playerSpot;
+
     private float initialDrag;
 
 	// Use this for initialization
@@ -41,7 +45,9 @@ public class Enemy : MovingObject
 
 	void OnCollisionEnter(Collision col){
 		if (col.gameObject.tag == "Player") {
+            playerSpot = col.transform.position;
 			bumped = true;
+            dashed = col.gameObject.GetComponent<Player>().state == Player.PlayerState.Dashing;
 		}
 	}
 
@@ -57,7 +63,8 @@ public class Enemy : MovingObject
 
         // If the enemy and the player have health left...
         if (playerDetected && agent.enabled) {
-			if(LineOfSight(player.transform))
+            bumped = false;
+            if (LineOfSight(player.transform))
 			{
 				if (!sighted) {
 					_playerDetectedAudio.Play ();
@@ -89,6 +96,7 @@ public class Enemy : MovingObject
 				agent.enabled = false;
                 rb.drag = 0f;
 				btimer += Time.deltaTime;
+
 				if (btimer >= bumpedTimer) {
                     //go back to normal, remove bumped state. wander!
                     rb.drag = initialDrag;
@@ -102,6 +110,19 @@ public class Enemy : MovingObject
 			}
 
 		}
+
+        if (dashed)
+        {
+            bumped = true;
+            agent.enabled = false;
+            rb.drag = 0f;
+            btimer += Time.deltaTime;
+
+            Vector3 pushDir = transform.position - playerSpot;
+            pushDir.y = 0f;
+            pushDir.Normalize();
+            rb.AddForce(pushDir * pushedStrength, ForceMode.Impulse);
+        }
 
         anim.SetFloat("MoveSpeed", agent.velocity.sqrMagnitude);
 
