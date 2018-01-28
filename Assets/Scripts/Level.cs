@@ -10,7 +10,7 @@ public class Level : MonoBehaviour
 {
     public Transform playerPrefab;
     public Transform enemyPrefab;
-    public Transform beaconPrefab;
+    public Beacon beaconPrefab;
 
     public int numEnemies;
     public int numBeacons;
@@ -21,31 +21,28 @@ public class Level : MonoBehaviour
 
 	public bool levelFinished;
 
-	// Use this for initialization
-	void Start()
-	{
-		levelFinished = false;
-	}
-
 	// Update is called once per frame
 	void Update()
 	{
-		if (BeaconsAreLitGondorCallsForAid ()) {
-			levelFinished = true;
-		}
-	}
+        levelFinished = BeaconsAreLitGondorCallsForAid();
+    }
 
-	bool BeaconsAreLitGondorCallsForAid(){
-		foreach (var beacon in beacons) {
-			if (!beacon.activated) {
+	bool BeaconsAreLitGondorCallsForAid()
+    {
+        if (beacons == null || beacons.Count == 0)
+        {
+            return false;
+        }
+
+		foreach(Beacon beacon in beacons)
+        {
+			if (!beacon.activated)
+            {
                 return false;
 			}
 		}
-		return true;
-	}
 
-	void openAirlock(){
-	
+		return true;
 	}
 
     public void SpawnEntities(List<Transform> spawnPoints)
@@ -78,12 +75,12 @@ public class Level : MonoBehaviour
         for (int i = 0; i < numBeacons; i++)
         {
             int index = Random.Range(0, spawnPoints.Count);
-            Transform beacon = Instantiate(
+            Beacon beacon = Instantiate<Beacon>(
                 beaconPrefab,
                 spawnPoints[index].position + heightOffset + GetRandomOffset(),
                 Quaternion.identity,
                 beaconParent);
-            enemies.Add(beacon);
+            beacons.Add(beacon);
         }
     }
 

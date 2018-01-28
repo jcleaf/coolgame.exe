@@ -387,10 +387,10 @@ MonoBehaviour:
     type: 2}
   enemyPrefab: {fileID: 4527788783431600, guid: d9ec24ed729a0493fbdc38df184180a4,
     type: 2}
-  beaconPrefab: {fileID: 4401551170266662, guid: f50051a524ed44648ac2a27eeecfa361,
+  beaconPrefab: {fileID: 114552415219434664, guid: f50051a524ed44648ac2a27eeecfa361,
     type: 2}
   numEnemies: 10
-  numBeacons: 5
+  numBeacons: 1
   player: {fileID: 0}
   enemies: []
   beacons: []
@@ -441,8 +441,8 @@ MonoBehaviour:
   exit: {fileID: 1243591373226152, guid: a6d729a87b4bf7d4e8a6b74101afd999, type: 2}
   parent: {fileID: 1615273608}
   tileSize: 1
-  columns: 32
-  rows: 32
+  columns: 16
+  rows: 16
   idealNumExits: 10
   branchWeights: 01000000140000000300000001000000
   minFloorRatio: 0.4
