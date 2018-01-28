@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.5748171, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -113,43 +113,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 1cc8bd7744f79fd47b01bc5207712b42, type: 2}
---- !u!1 &5145838
+--- !u!1 &461198835
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 5145840}
-  - component: {fileID: 5145839}
+  - component: {fileID: 461198837}
+  - component: {fileID: 461198836}
   m_Layer: 0
-  m_Name: InstructionHandler
+  m_Name: Progression Script
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &5145839
+--- !u!114 &461198836
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 5145838}
+  m_GameObject: {fileID: 461198835}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d84bfe1867a204293b53958e69328b9f, type: 3}
+  m_Script: {fileID: 11500000, guid: 02b059f5d616b473696f52c376f67e54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  instructionPrefab: {fileID: 1306784156833376, guid: 4002239eee8bb462794b61a0ddacf5c2,
-    type: 2}
---- !u!4 &5145840
+  levelParamsArray:
+  - {fileID: 11400000, guid: e7c84bf79fdb64260a4c5559ae04c09c, type: 2}
+  - {fileID: 11400000, guid: dcdb747e335f84063835f6900be65a3e, type: 2}
+  - {fileID: 11400000, guid: e9e9462d9f6144268a2315987dfa6e0d, type: 2}
+  levelNum:
+    tryUseReferenceValue: 1
+    referenceValue: {fileID: 11400000, guid: 60f2acf9aa0a2244aaf66247f957a8f5, type: 2}
+    customValue: 0
+  currentlevel: {fileID: 11400000, guid: 1f33f7043a9de42549ac37aa837a5ed2, type: 2}
+--- !u!4 &461198837
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 5145838}
-  m_LocalRotation: {x: 0.3420201, y: -0, z: -0, w: 0.9396927}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_GameObject: {fileID: 461198835}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6.9182444, y: 6.411565, z: 0.9146459}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -404,6 +411,21 @@ Prefab:
       propertyPath: levelManager
       value: 
       objectReference: {fileID: 1049054626}
+    - target: {fileID: 114579025502573920, guid: bd416879930b13e478b9b42593d66798,
+        type: 2}
+      propertyPath: minFloorRatio
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114579025502573920, guid: bd416879930b13e478b9b42593d66798,
+        type: 2}
+      propertyPath: maxFloorRatio
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 114579025502573920, guid: bd416879930b13e478b9b42593d66798,
+        type: 2}
+      propertyPath: progress
+      value: 
+      objectReference: {fileID: 461198836}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bd416879930b13e478b9b42593d66798, type: 2}
   m_IsPrefabParent: 0
@@ -559,6 +581,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114056989978083032, guid: 7302749a6e5ab384f90a5f2750e0c9e7,
+        type: 2}
+      propertyPath: progress
+      value: 
+      objectReference: {fileID: 461198836}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7302749a6e5ab384f90a5f2750e0c9e7, type: 2}
   m_IsPrefabParent: 0

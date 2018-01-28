@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b94961357f04746d8ab0dbe83262fb46, type: 3}
+  m_Name: LevelParams3
+  m_EditorClassIdentifier: 
+  numBeacons: 8
+  numEnemies: 60
+  tileSize: 1
+  mapCol: 32
+  mapRows: 32
+  idealNumExits: 5
+  minFloorRatio: 0.4
+  maxFloorRatio: 0.9
+  scale: 5
+  branchWeights: 01000000140000000300000001000000

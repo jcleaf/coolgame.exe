@@ -6,6 +6,7 @@ using UnityEngine.Assertions;
 
 public class MapBuilder : MonoBehaviour
 {
+	public Progression progress;
     private const int MAX_NUM_TRIES = 20;
 
 #pragma warning disable 0649
@@ -86,6 +87,16 @@ public class MapBuilder : MonoBehaviour
 
     void Start()
     {
+		tileSize = progress.currentlevel.tileSize;
+		columns = progress.currentlevel.mapCol;
+		rows = progress.currentlevel.mapRows;
+		idealNumExits = progress.currentlevel.idealNumExits;
+
+		minFloorRatio = progress.currentlevel.minFloorRatio;
+		maxFloorRatio = progress.currentlevel.maxFloorRatio;
+		scale = progress.currentlevel.scale;
+		branchWeights = progress.currentlevel.branchWeights;
+
         random = new System.Random();
         potentialExits = new List<Tile>();
         spawnPoints = new List<Transform>();
@@ -397,7 +408,6 @@ public class MapBuilder : MonoBehaviour
 
     private void AddExits()
     {
-        Debug.LogFormat("{0} potential exits.", potentialExits.Count);
         List<int> exitIndeces = Enumerable.Range(0, potentialExits.Count).OrderBy(n => random.Next()).ToList();
 
         int exits = 0;

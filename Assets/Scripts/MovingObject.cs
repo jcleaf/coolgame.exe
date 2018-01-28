@@ -12,7 +12,7 @@ public class MovingObject : MonoBehaviour
     [SerializeField]
     private Transform graphics;
 
-    void Awake()
+    public void Awake()
     {
         rb = GetComponent<Rigidbody>();
         billboard = GetComponentInChildren<Billboard>();

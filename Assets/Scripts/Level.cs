@@ -17,16 +17,24 @@ public class Level : MonoBehaviour
     public int numEnemies;
     public int numBeacons;
 
+    public BoolReference beaconsLitRef;
+
     public Transform player;
     public List<Transform> enemies;
 	public List<Beacon> beacons;
 	private AudioSource winaudio;
 	public bool levelFinished;
 
+	public Progression progress;
+
     void Awake()
     {
+		numBeacons = progress.currentlevel.numBeacons;
+		numEnemies = progress.currentlevel.numEnemies;
 		winaudio = GetComponent<AudioSource> ();
         SceneManager.LoadScene(UI_SCENE_NAME, LoadSceneMode.Additive);
+
+        beaconsLitRef.value = false;
     }
 
 	// Update is called once per frame
@@ -34,6 +42,7 @@ public class Level : MonoBehaviour
 	{
 		bool wasFinished = levelFinished;
         levelFinished = BeaconsAreLitGondorCallsForAid();
+        beaconsLitRef.value = levelFinished;
 		if (wasFinished != levelFinished) {
 			winaudio.Play ();
 		}

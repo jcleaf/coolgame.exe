@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class GameOverUI : MonoBehaviour
 {
     public IntReference playerHealth;
+    public BoolReference playerWon;
 
     private Image goBackground;
     private Text goText;
@@ -16,7 +17,7 @@ public class GameOverUI : MonoBehaviour
 
     void Update()
     {
-        goBackground.enabled = playerHealth <= 0;
-        goText.enabled = playerHealth <= 0;
+        goBackground.enabled = playerHealth <= 0 && !playerWon;
+        goText.enabled = playerHealth <= 0 && !playerWon;
     }
 }

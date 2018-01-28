@@ -59,7 +59,6 @@ GameObject:
   - component: {fileID: 4260148086306638}
   - component: {fileID: 20711599355699510}
   - component: {fileID: 124667943889929526}
-  - component: {fileID: 81838290955311144}
   m_Layer: 0
   m_Name: BGCam
   m_TagString: Untagged
@@ -227,13 +226,6 @@ AudioListener:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1276239899181652}
-  m_Enabled: 1
---- !u!81 &81838290955311144
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1479609443643966}
   m_Enabled: 1
 --- !u!114 &114159220361246496
 MonoBehaviour:
