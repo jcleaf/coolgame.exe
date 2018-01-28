@@ -6,6 +6,8 @@ public class Player : MovingObject
     private Rigidbody _body;
     private Animator _anim;
 	private Beacon beacon;
+    private InstructionHandler instructionHandler;
+
     public float Speed = 10f;
     public float DashSpeed = 30f;
     public float DashTime = 0.2f;
@@ -64,6 +66,8 @@ public class Player : MovingObject
         _anim = GetComponentInChildren<Animator>();
 		dead = false;
         initialDrag = GetComponent<Rigidbody>().drag;
+
+        instructionHandler = GameObject.Find("InstructionHandler").GetComponent<InstructionHandler>();
 	}
 
     private void OnCollisionEnter(Collision collision)
@@ -134,6 +138,11 @@ public class Player : MovingObject
 					_dashaudio.Play ();
                     state = PlayerState.Dashing;
                     dashCount = DashTime; // something?
+                    if (instructionHandler)
+                    {
+                        Debug.Log(transform.position);
+                        instructionHandler.AddNextPlayerInstruction(transform.position);
+                    }
                 }
                 break;
 			case PlayerState.Dashing:
