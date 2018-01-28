@@ -264,13 +264,13 @@ public class MapBuilder : MonoBehaviour
         map[x, y] = new Tile(tile, x, y);
     }
 
-    private void ReplaceGameObject(GameObject prefab, Tile tile, int x, int y, bool isWall = false)
+    private void ReplaceGameObject(GameObject prefab, Tile tile, int x, int y, bool isWall = false, Quaternion? rotation = null)
     {
         tile.isWall = isWall;
         tile.go = Instantiate(
                     prefab,
                     transform.position + (Vector3.right * x * tileSize * scale) + (-Vector3.forward * y * tileSize * scale),
-                    Quaternion.identity,
+                    rotation.HasValue ? rotation.Value : Quaternion.identity,
                     parent);
         tile.go.transform.localScale *= scale;
     }
@@ -405,9 +405,26 @@ public class MapBuilder : MonoBehaviour
         {
             Tile tile = potentialExits[exitIndeces[exits]];
             Destroy(tile.go);
-            ReplaceGameObject(exit, tile, tile.pos.x, tile.pos.y, true);
+            ReplaceGameObject(exit, tile, tile.pos.x, tile.pos.y, true, RotationToEmptyNeighbor(tile));
             tile.go.GetComponent<Exit>().levelManager = levelManager;
             ++exits;
         }
+    }
+
+    private Quaternion RotationToEmptyNeighbor(Tile tile)
+    {
+        int x = tile.pos.x;
+        int y = tile.pos.y;
+
+        if (IsEmptyTile(x - 1, y)) { return Quaternion.LookRotation(Vector3.left); }
+        else if (IsEmptyTile(x + 1, y)) { return Quaternion.LookRotation(Vector3.right); }
+        else if (IsEmptyTile(x, y - 1)) { return Quaternion.LookRotation(Vector3.forward); }
+        else if (IsEmptyTile(x, y + 1)) { return Quaternion.LookRotation(Vector3.back); }
+        else { Debug.LogError("Couldn't find empty neighbor!"); return Quaternion.identity; }
+    }
+
+    private bool IsEmptyTile(int x, int y)
+    {
+        return !IsValid(x, y) || map[x, y].go == null;
     }
 }
