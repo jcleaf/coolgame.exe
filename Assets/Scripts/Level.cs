@@ -20,18 +20,23 @@ public class Level : MonoBehaviour
     public Transform player;
     public List<Transform> enemies;
 	public List<Beacon> beacons;
-
+	private AudioSource winaudio;
 	public bool levelFinished;
 
     void Awake()
     {
+		winaudio = GetComponent<AudioSource> ();
         SceneManager.LoadScene(UI_SCENE_NAME, LoadSceneMode.Additive);
     }
 
 	// Update is called once per frame
 	void Update()
 	{
+		bool wasFinished = levelFinished;
         levelFinished = BeaconsAreLitGondorCallsForAid();
+		if (wasFinished != levelFinished) {
+			winaudio.Play ();
+		}
     }
 
 	bool BeaconsAreLitGondorCallsForAid()

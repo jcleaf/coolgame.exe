@@ -18,8 +18,9 @@ public class Enemy : MovingObject
 	private float btimer;
 	public float bumpedTimer;
 	private bool bumped;
-
+	private bool sighted;
     public int damage;
+	private AudioSource _playerDetectedAudio;
 
     private float initialDrag;
 
@@ -34,6 +35,8 @@ public class Enemy : MovingObject
 		bumped = false;
 		btimer = bumpedTimer;
         initialDrag = rb.drag;
+		_playerDetectedAudio = GetComponent<AudioSource> ();
+		sighted = false;
 	}
 
 	void OnCollisionEnter(Collision col){
@@ -55,7 +58,12 @@ public class Enemy : MovingObject
         // If the enemy and the player have health left...
         if (playerDetected && agent.enabled) {
 			if(LineOfSight(player.transform))
-            {
+			{
+				if (!sighted) {
+					_playerDetectedAudio.Play ();
+					sighted = true;
+				} 
+
 				// ... set the destination of the nav mesh agent to the player.
 				agent.SetDestination (player.transform.position);
 				lastPlayerSighting = player.transform.position;
@@ -64,6 +72,7 @@ public class Enemy : MovingObject
 				//			nav.nextPosition = (nav.speed*Time.deltaTime)*distance.normalized;
                 reaction.Exclaim();
 			} else {
+				
 				// ... disable the nav mesh agent.
 				Vector3 distanceToLastSighting = transform.position - lastPlayerSighting;
 				float distance = distanceToLastSighting.magnitude;

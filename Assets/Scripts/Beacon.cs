@@ -6,7 +6,7 @@ public class Beacon : MonoBehaviour
 {
 	[SerializeField] private bool _activated;
     [SerializeField] private Sprite activatedSprite;
-
+	private AudioSource src;
     public bool activated { get { return _activated; } }
 
     private SpriteRenderer spriteRenderer;
@@ -14,6 +14,7 @@ public class Beacon : MonoBehaviour
 	void Awake ()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+		src = GetComponent<AudioSource> ();
 	}
 
     void OnTriggerEnter(Collider col)
@@ -37,7 +38,11 @@ public class Beacon : MonoBehaviour
 
     public void Activate()
     {
-        _activated = true;
+		if (!_activated) {
+			src.Play ();
+		}
+		_activated = true;
         spriteRenderer.sprite = activatedSprite;
+
     }
 }
