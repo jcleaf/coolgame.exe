@@ -15,6 +15,7 @@ public class Progression : MonoBehaviour {
 		{
 			instanceRef = this;
 			DontDestroyOnLoad(gameObject);
+			levelNum.value = 0;
 		}else
 		{
 			DestroyImmediate(gameObject);
@@ -71,7 +72,5 @@ public class Progression : MonoBehaviour {
         SceneManager.LoadScene(scene, LoadSceneMode.Single);
 		_musicloop.otherSoundPlaying = false;
     }
-	void OnDestroy(){
-		levelNum.value = 0;
-	}
+
     }
