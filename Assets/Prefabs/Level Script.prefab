@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4270763802040482}
   - component: {fileID: 114056989978083032}
+  - component: {fileID: 114714846841238672}
   - component: {fileID: 82214644314847532}
   m_Layer: 0
   m_Name: Level Script
@@ -139,8 +140,23 @@ MonoBehaviour:
   beaconPrefab: {fileID: 114552415219434664, guid: f50051a524ed44648ac2a27eeecfa361,
     type: 2}
   numEnemies: 40
-  numBeacons: 1
+  numBeacons: 4
   player: {fileID: 0}
   enemies: []
   beacons: []
   levelFinished: 0
+--- !u!114 &114714846841238672
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1427118050892186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce70e3620b729648bc6c46d54bd7bda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth:
+    tryUseReferenceValue: 1
+    referenceValue: {fileID: 11400000, guid: 604f548d506247e4393264098ef53ce4, type: 2}
+    customValue: 0
