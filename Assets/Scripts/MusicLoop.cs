@@ -9,6 +9,8 @@ public class MusicLoop : MonoBehaviour {
 	int Step;
 	public float maxTime;
 	public float minTime;
+	public bool otherSoundPlaying;
+	public float startVol;
 	// Use this for initialization
 	void Start () {
 		if(instanceRef == null)
@@ -16,6 +18,8 @@ public class MusicLoop : MonoBehaviour {
 			instanceRef = this;
 			DontDestroyOnLoad(gameObject);
 			Src = GetComponent<AudioSource> ();
+			otherSoundPlaying = false;
+			startVol = 0.54f;
 		}else
 		{
 			DestroyImmediate(gameObject);
@@ -25,7 +29,13 @@ public class MusicLoop : MonoBehaviour {
 	}
 
 
-
+	private void Update(){
+		if (otherSoundPlaying) {
+			Src.volume = startVol * 0.5f;
+		} else {
+			Src.volume = startVol;
+		}
+	}
 
 	private void LateUpdate()
 	{
