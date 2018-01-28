@@ -64,6 +64,8 @@ public class Enemy : MovingObject
         // If the enemy and the player have health left...
         if (playerDetected && agent.enabled) {
             bumped = false;
+            btimer = 0f;
+
             if (LineOfSight(player.transform))
 			{
 				if (!sighted) {
@@ -114,9 +116,9 @@ public class Enemy : MovingObject
         if (dashed)
         {
             bumped = true;
+            dashed = false;
             agent.enabled = false;
             rb.drag = 0f;
-            btimer += Time.deltaTime;
 
             Vector3 pushDir = transform.position - playerSpot;
             pushDir.y = 0f;
