@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 3e15dd07fdcc7426bacf8911c9100064
-timeCreated: 1517098738
+timeCreated: 1517114271
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -9,6 +9,14 @@ TextureImporter:
     21300004: Player 1_2
     21300006: Player 1_3
     21300008: Player 1_4
+    21300010: Player 1_5
+    21300012: Player 1_6
+    21300014: Player 1_7
+    21300016: Player 1_8
+    21300018: Player 1_9
+    21300020: Player 1_10
+    21300022: Player 1_11
+    21300024: Player 1_12
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -156,6 +164,118 @@ TextureImporter:
         serializedVersion: 2
         x: 120
         y: 70
+        width: 30
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Player 1_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 40
+        width: 30
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Player 1_6
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 40
+        width: 30
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Player 1_7
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 40
+        width: 30
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Player 1_8
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 40
+        width: 30
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Player 1_9
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 40
+        width: 30
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Player 1_10
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 40
+        width: 30
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Player 1_11
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 40
+        width: 30
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Player 1_12
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 40
         width: 30
         height: 30
       alignment: 7

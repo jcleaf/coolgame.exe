@@ -86,6 +86,7 @@ public class Player : MovingObject
         }
 
         _anim.SetFloat("MoveSpeed", moveDir.sqrMagnitude);
+        _anim.SetBool("Roll", state == PlayerState.Dashing);
 	}
 
     private void FixedUpdate()
