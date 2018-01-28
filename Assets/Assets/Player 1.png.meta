@@ -1,14 +1,14 @@
 fileFormatVersion: 2
-guid: fe43ab252e7df4c3a87dccd99421fb62
-timeCreated: 1517092690
+guid: 3e15dd07fdcc7426bacf8911c9100064
+timeCreated: 1517098738
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Robot 1_0
-    21300002: Robot 1_1
-    21300004: Robot 1_2
-    21300006: Robot 1_3
-    21300008: Robot 1_4
+    21300000: Player 1_0
+    21300002: Player 1_1
+    21300004: Player 1_2
+    21300006: Player 1_3
+    21300008: Player 1_4
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -95,7 +95,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Robot 1_0
+      name: Player 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -109,7 +109,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Robot 1_1
+      name: Player 1_1
       rect:
         serializedVersion: 2
         x: 30
@@ -123,7 +123,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Robot 1_2
+      name: Player 1_2
       rect:
         serializedVersion: 2
         x: 60
@@ -137,7 +137,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Robot 1_3
+      name: Player 1_3
       rect:
         serializedVersion: 2
         x: 90
@@ -151,7 +151,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Robot 1_4
+      name: Player 1_4
       rect:
         serializedVersion: 2
         x: 120

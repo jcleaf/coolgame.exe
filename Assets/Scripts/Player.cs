@@ -6,6 +6,7 @@ public class Player : MonoBehaviour {
 
 	public bool dead;
     private Rigidbody _body;
+    private Animator _anim;
 	private Beacon beacon;
     public float Speed = 10f;
     public float DashSpeed = 30f;
@@ -26,6 +27,7 @@ public class Player : MonoBehaviour {
 
 	void Start() {
         _body = GetComponent<Rigidbody>();
+        _anim = GetComponentInChildren<Animator>();
 		dead = false;
 	}
 
@@ -71,6 +73,8 @@ public class Player : MonoBehaviour {
         if (moveDir.sqrMagnitude > 0.4) {
             dashDir = moveDir.normalized;
         }
+
+        _anim.SetFloat("MoveSpeed", moveDir.sqrMagnitude);
 	}
 
     private void FixedUpdate()
