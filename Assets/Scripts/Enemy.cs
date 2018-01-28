@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityEngine.AI;
 public class Enemy : MonoBehaviour {
 	GameObject player ;
-	NavMeshAgent agent; 
+	NavMeshAgent agent;
+    Animator anim;
+
 	public bool playerDetected;
 	public Vector3 lastPlayerSighting;
 
@@ -15,6 +17,7 @@ public class Enemy : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find("Player");
+        anim = GetComponentInChildren<Animator>();
 		agent = GetComponent<NavMeshAgent>();
 		playerDetected = false;
 		// Use this for initialization
@@ -24,6 +27,10 @@ public class Enemy : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        if (!agent.enabled)
+        {
+            return;
+        }
 
 		// If the enemy and the player have health left...
 		if (playerDetected) {
@@ -50,6 +57,7 @@ public class Enemy : MonoBehaviour {
 			wander();
 		}
 
+        anim.SetFloat("MoveSpeed", agent.velocity.sqrMagnitude);
 
 	}
 	void wander(){

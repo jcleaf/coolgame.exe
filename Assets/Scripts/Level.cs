@@ -10,57 +10,91 @@ public class Level : MonoBehaviour
 {
     public Transform playerPrefab;
     public Transform enemyPrefab;
-    public Transform beaconPrefab;
+    public Beacon beaconPrefab;
+
+    public int numEnemies;
+    public int numBeacons;
 
     public Transform player;
     public List<Transform> enemies;
 	public List<Beacon> beacons;
 
 	public bool levelFinished;
-	// Use this for initialization
-	void Start()
-	{
-        //player = Instantiate(playerPrefab, new Vector3(0, 1, 0), Quaternion.identity);
-        //enemies = new List<Transform>();
-        //for (int i = 0; i < 10; i++)
-        //{
-        //    Vector2 pos = 10 * Random.insideUnitCircle;
-        //    Transform enemy = Instantiate(enemyPrefab, new Vector3(pos.x, 1, pos.y), Quaternion.identity);
-        //    enemies.Add(enemy);
-        //}
-        //beacons = new List<Transform>();
-        //for (int i = 0; i < 10; i++)
-        //{
-        //    Vector2 pos = 10 * Random.insideUnitCircle;
-        //    Transform beacon = Instantiate(enemyPrefab, new Vector3(pos.x, 1, pos.y), Quaternion.identity);
-        //    beacons.Add(beacon);
-        //}
-		GameObject[] gameObjectBeacons = GameObject.FindGameObjectsWithTag("Beacon");
-		for (int i = 0; i < gameObjectBeacons.Length; i++) {
-			beacons.Add(gameObjectBeacons[i].GetComponent<Beacon>());
-		}
-		levelFinished = false;
-	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		if (BeaconsAreLitGondorCallsForAid ()) {
-			levelFinished = true;
-		}
-	}
-	bool BeaconsAreLitGondorCallsForAid(){
-		bool gondorCallsForAid = true;
-		foreach (var beacon in beacons) {
-			if (beacon.activated == false) {
-				gondorCallsForAid = false;
-				break;
+        levelFinished = BeaconsAreLitGondorCallsForAid();
+    }
+
+	bool BeaconsAreLitGondorCallsForAid()
+    {
+        if (beacons == null || beacons.Count == 0)
+        {
+            return false;
+        }
+
+		foreach(Beacon beacon in beacons)
+        {
+			if (!beacon.activated)
+            {
+                return false;
 			}
 		}
-		return gondorCallsForAid;
+
+		return true;
 	}
 
-	void openAirlock(){
-	
-	}
+    public void SpawnEntities(List<Transform> spawnPoints)
+    {
+        Vector3 heightOffset = 1f * Vector3.up;
+
+        Transform entities = (new GameObject("Entities")).transform;
+        player = Instantiate(
+            playerPrefab,
+            spawnPoints[Random.Range(0, spawnPoints.Count)].position + heightOffset + GetRandomOffset(),
+            Quaternion.identity,
+            entities);
+
+        Transform enemyParent = (new GameObject("Enemies")).transform;
+        enemyParent.parent = entities;
+        for (int i = 0; i < numEnemies; i++)
+        {
+            int index = Random.Range(0, spawnPoints.Count);
+            Transform enemy = Instantiate(
+                enemyPrefab,
+                spawnPoints[index].position + heightOffset + GetRandomOffset(),
+                Quaternion.identity,
+                enemyParent);
+            enemies.Add(enemy);
+        }
+
+
+        Transform beaconParent = (new GameObject("Beacons")).transform;
+        beaconParent.parent = entities;
+        for (int i = 0; i < numBeacons; i++)
+        {
+            int index = Random.Range(0, spawnPoints.Count);
+            Beacon beacon = Instantiate<Beacon>(
+                beaconPrefab,
+                spawnPoints[index].position + heightOffset + GetRandomOffset(),
+                Quaternion.identity,
+                beaconParent);
+            beacons.Add(beacon);
+        }
+    }
+
+    /**
+     * Some 2D random offset, just for moving along the plane
+     */
+    private Vector3 GetRandomOffset() {
+        Vector2 randomOffset2d = Random.insideUnitCircle;
+        Vector3 randomOffset = new Vector3(randomOffset2d.x, 0, randomOffset2d.y);
+        return randomOffset;
+    }
+
+    public void DestroyEnemeies()
+    {
+
+    }
 }
