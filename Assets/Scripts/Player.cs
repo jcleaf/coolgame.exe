@@ -27,6 +27,9 @@ public class Player : MovingObject
     private Vector3 moveDir = Vector3.zero;
     private Vector3 dashDir = new Vector3(1, 0, 0);
 
+    // Last place where an instruction was generated
+    private Vector3 lastInstructionPos = Vector3.zero;
+
     private float initialDrag;
 
 	private bool _spacedeath;
@@ -66,8 +69,10 @@ public class Player : MovingObject
         _anim = GetComponentInChildren<Animator>();
 		dead = false;
         initialDrag = GetComponent<Rigidbody>().drag;
+        lastInstructionPos = transform.position;
 
         instructionHandler = GameObject.Find("InstructionHandler").GetComponent<InstructionHandler>();
+        instructionHandler.AddNextPlayerInstruction(transform.position);
 	}
 
     private void OnCollisionEnter(Collision collision)
@@ -141,7 +146,6 @@ public class Player : MovingObject
                     if (instructionHandler)
                     {
                         Debug.Log(transform.position);
-                        instructionHandler.AddNextPlayerInstruction(transform.position);
                     }
                 }
                 break;
@@ -164,6 +168,13 @@ public class Player : MovingObject
 		}
         _anim.SetFloat("MoveSpeed", moveDir.sqrMagnitude);
         _anim.SetBool("Roll", state == PlayerState.Dashing);
+
+        // Instruction updating
+        const int instructionDist = 10;
+        if ((transform.position - lastInstructionPos).sqrMagnitude > instructionDist * instructionDist) {
+            instructionHandler.AddNextPlayerInstruction(transform.position);
+            lastInstructionPos = transform.position;
+        }
 	}
 
     private void FixedUpdate()

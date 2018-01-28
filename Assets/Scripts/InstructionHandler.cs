@@ -25,6 +25,15 @@ public class InstructionHandler : MonoBehaviour
     };
     private string allBeaconWords = "All beacons activated. Make your way to an airlock.";
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(transform.gameObject);
+        if (FindObjectsOfType(GetType()).Length > 1)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public void AddNextPlayerInstruction(Vector3 pos) {
         if (playerIndex < playerWords.Length) {
             AddInstruction(playerWords[playerIndex], pos);
@@ -38,7 +47,10 @@ public class InstructionHandler : MonoBehaviour
         var rectTransform = go.GetComponent<RectTransform>();
         rectTransform.position = uiPos;
 
-        var text = go.GetComponentInChildren<UnityEngine.UI.Text>();
-        text.text = word;
+        var texts = go.GetComponentsInChildren<UnityEngine.UI.Text>();
+        foreach (var text in texts)
+        {
+            text.text = word;
+        }
     }
 }

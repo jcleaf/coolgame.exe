@@ -7,11 +7,19 @@ public class Progression : MonoBehaviour {
 	public LevelParameters[] levelParamsArray;
 	public IntReference levelNum;
 	public LevelParameters currentlevel;
-
+	private static Progression instanceRef;
 	// Use this for initialization
 	void Awake () {
+		if(instanceRef == null)
+		{
+			instanceRef = this;
+			DontDestroyOnLoad(gameObject);
+		}else
+		{
+			DestroyImmediate(gameObject);
+		}
 		updateLevelParams (levelParamsArray [levelNum.value]);
-		DontDestroyOnLoad (transform.gameObject);
+
 	}
 		
 	// Update is called once per frame
