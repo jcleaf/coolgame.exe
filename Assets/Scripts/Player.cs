@@ -13,6 +13,8 @@ public class Player : MovingObject
     public float HurtCooldownTime = 1f;
 
     public IntReference playerHealth;
+    public BoolReference playerWonRef;
+    public BoolReference beaconsLit;
 
     public PlayerState state;
     private float dashCount = 0;
@@ -31,9 +33,18 @@ public class Player : MovingObject
 	private AudioSource _hurtaudio;
 	private AudioSource _walkaudio;
 	private AudioSource _dashaudio;
+
     public enum PlayerState
     {
         Walking, Dashing
+    }
+
+    void Awake()
+    {
+        base.Awake();
+
+        playerHealth.value = 100;
+        playerWonRef.value = false;
     }
 
 	void Start()
@@ -45,7 +56,6 @@ public class Player : MovingObject
 		_hurtaudio = audio [2];
 		_walkaudio = audio [3];
 		_dashaudio = audio [4];
-		playerHealth.value = 100;
         _body = GetComponent<Rigidbody>();
         _anim = GetComponentInChildren<Animator>();
 		dead = false;
@@ -180,5 +190,19 @@ public class Player : MovingObject
     public override Vector3 GetMoveDir()
     {
         return moveDir;
+    }
+
+    public override void EnterSpace(Vector3 spaceTorque)
+    {
+        base.EnterSpace(spaceTorque);
+
+        if (beaconsLit)
+        {
+            playerWonRef.value = true;
+        }
+        else
+        {
+            playerHealth.value = 0;
+        }
     }
 }

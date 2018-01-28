@@ -562,6 +562,14 @@ MonoBehaviour:
     tryUseReferenceValue: 1
     referenceValue: {fileID: 11400000, guid: 604f548d506247e4393264098ef53ce4, type: 2}
     customValue: 0
+  playerWonRef:
+    tryUseReferenceValue: 1
+    referenceValue: {fileID: 11400000, guid: 77fe45891ab62d84f9e73a15270e3a2d, type: 2}
+    customValue: 0
+  beaconsLit:
+    tryUseReferenceValue: 1
+    referenceValue: {fileID: 11400000, guid: 54d756556dc687c41861e2ea78ef31e3, type: 2}
+    customValue: 0
   state: 0
 --- !u!114 &114791489139294888
 MonoBehaviour:
