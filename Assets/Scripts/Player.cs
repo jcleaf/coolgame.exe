@@ -11,6 +11,8 @@ public class Player : MovingObject
     public float DashTime = 0.2f;
     public float DashCooldown = 0.5f;
 
+    public IntReference playerHealth;
+
     public PlayerState state;
     private float dashCount = 0;
     private float dashCooldown = 0;
@@ -40,7 +42,11 @@ public class Player : MovingObject
 		if (collision.gameObject.tag == "Enemy") {
 			Enemy enemy = collision.gameObject.GetComponent<Enemy> ();
 			if (enemy.playerDetected) {
-				dead = true;
+                playerHealth.value -= enemy.damage;
+
+                if (playerHealth < 0) {
+                    dead = true;
+                }
 			}
 		}
         if (collision.gameObject.tag == "Beacon")

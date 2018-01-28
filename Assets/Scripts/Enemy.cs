@@ -17,6 +17,8 @@ public class Enemy : MovingObject
 	public float bumpedTimer;
 	private bool bumped;
 
+    public int damage;
+
     private Rigidbody rb;
     private float initialDrag;
 

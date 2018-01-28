@@ -10,16 +10,23 @@ public class Beacon : MonoBehaviour {
 		activated = false;
 		enemy = null;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-	void OnTriggerEnter(Collider col){
-		if (col.gameObject.tag == "Enemy" && activated) {
-			enemy = col.gameObject.GetComponent<Enemy>();
-			enemy.playerDetected = true;
-		}
-	}
 
+    void OnTriggerEnter(Collider col){
+        TryUpdateEnemy(col);
+
+    }
+
+    void OnTriggerStay(Collider col)
+    {
+        TryUpdateEnemy(col);
+    }
+
+    private void TryUpdateEnemy(Collider col)
+    {
+        if (col.gameObject.tag == "Enemy" && activated)
+        {
+            enemy = col.gameObject.GetComponent<Enemy>();
+            enemy.playerDetected = true;
+        }
+    }
 }
