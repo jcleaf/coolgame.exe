@@ -2,6 +2,7 @@
 
 public class Player : MovingObject
 {
+	
 	public bool dead;
     private Rigidbody _body;
     private Animator _anim;
@@ -41,6 +42,7 @@ public class Player : MovingObject
 	private AudioSource _winaudio;
 	private MusicLoop _musicloop;
 
+	private Camera cam;
     public enum PlayerState
     {
         Walking, Dashing
@@ -48,6 +50,7 @@ public class Player : MovingObject
 
     void Awake()
     {
+		cam = UnityEngine.Camera.main.GetComponent<Camera> ();
         base.Awake();
 		GameObject music = GameObject.Find("Audio Source");
 		_musicloop = music.GetComponent<MusicLoop> ();
@@ -96,6 +99,7 @@ public class Player : MovingObject
             if (enemy.playerDetected && hurtCooldownCount <= 0)
             {
                 playerHealth.value -= enemy.damage;
+				cam.shakeDuration = 0.5f;
                 if (playerHealth <= 0)
                 {
 					_musicloop.otherSoundPlaying = true;

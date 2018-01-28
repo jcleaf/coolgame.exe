@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.5748171, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -202,7 +202,7 @@ AudioSource:
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 2
-  BypassEffects: 0
+  BypassEffects: 1
   BypassListenerEffects: 0
   BypassReverbZones: 1
   rolloffCustomCurve:
@@ -286,6 +286,8 @@ MonoBehaviour:
   Src: {fileID: 0}
   maxTime: 64
   minTime: 0
+  otherSoundPlaying: 0
+  startVol: 0
 --- !u!82 &925614597
 AudioSource:
   m_ObjectHideFlags: 0
@@ -578,6 +580,21 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4588345564774040, guid: e4ba9f4d79a45634ea5492500c330360, type: 2}
       propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 20796892080949436, guid: e4ba9f4d79a45634ea5492500c330360,
+        type: 2}
+      propertyPath: m_HDR
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114397935247904930, guid: e4ba9f4d79a45634ea5492500c330360,
+        type: 2}
+      propertyPath: shakeAmount
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114397935247904930, guid: e4ba9f4d79a45634ea5492500c330360,
+        type: 2}
+      propertyPath: shakeDuration
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
