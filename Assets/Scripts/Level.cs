@@ -51,28 +51,38 @@ public class Level : MonoBehaviour
     public void SpawnEntities(List<Transform> spawnPoints)
     {
         Vector3 heightOffset = 1f * Vector3.up;
+
+        Transform entities = (new GameObject("Entities")).transform;
         player = Instantiate(
             playerPrefab,
             spawnPoints[Random.Range(0, spawnPoints.Count)].position + heightOffset + GetRandomOffset(),
-            Quaternion.identity);
+            Quaternion.identity,
+            entities);
 
+        Transform enemyParent = (new GameObject("Enemies")).transform;
+        enemyParent.parent = entities;
         for (int i = 0; i < numEnemies; i++)
         {
             int index = Random.Range(0, spawnPoints.Count);
             Transform enemy = Instantiate(
                 enemyPrefab,
                 spawnPoints[index].position + heightOffset + GetRandomOffset(),
-                Quaternion.identity);
+                Quaternion.identity,
+                enemyParent);
             enemies.Add(enemy);
         }
 
+
+        Transform beaconParent = (new GameObject("Beacons")).transform;
+        beaconParent.parent = entities;
         for (int i = 0; i < numBeacons; i++)
         {
             int index = Random.Range(0, spawnPoints.Count);
             Transform beacon = Instantiate(
                 beaconPrefab,
                 spawnPoints[index].position + heightOffset + GetRandomOffset(),
-                Quaternion.identity);
+                Quaternion.identity,
+                beaconParent);
             enemies.Add(beacon);
         }
     }
