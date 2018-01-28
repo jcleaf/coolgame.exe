@@ -14,6 +14,8 @@ public class Player : MovingObject
     public float DashTime = 0.2f;
     public float DashCooldownTime = 0.5f;
     public float HurtCooldownTime = 1f;
+    public float WalkSfxTime = 0.2f;
+    public float WalkSfxCount = 0;
 
     public IntReference playerHealth;
     public BoolReference playerWonRef;
@@ -164,9 +166,18 @@ public class Player : MovingObject
         if (moveDir.sqrMagnitude > 0.4) {
             dashDir = moveDir.normalized;
         }
-		if (!_walkaudio.isPlaying && moveDir.sqrMagnitude > 0.0) {
-			_walkaudio.Play ();
+
+        // Walk SFX
+        if (WalkSfxCount > 0) {
+            WalkSfxCount -= Time.deltaTime;
+        }
+		if (moveDir.sqrMagnitude > 0.1) {
+            if (WalkSfxCount <= 0) {
+                WalkSfxCount = WalkSfxTime;
+                _walkaudio.Play();
+            }
 		}
+
         _anim.SetFloat("MoveSpeed", moveDir.sqrMagnitude);
         _anim.SetBool("Roll", state == PlayerState.Dashing);
 
