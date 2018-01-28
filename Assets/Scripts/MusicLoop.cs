@@ -15,12 +15,13 @@ public class MusicLoop : MonoBehaviour {
 		{
 			instanceRef = this;
 			DontDestroyOnLoad(gameObject);
+			Src = GetComponent<AudioSource> ();
 		}else
 		{
 			DestroyImmediate(gameObject);
 		}
 
-		Src = GetComponent<AudioSource> ();
+
 	}
 
 
