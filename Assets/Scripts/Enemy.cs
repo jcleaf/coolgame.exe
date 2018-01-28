@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
-public class Enemy : MonoBehaviour {
-	GameObject player ;
+public class Enemy : MovingObject
+{
+	GameObject player;
 	NavMeshAgent agent;
     Animator anim;
 
@@ -20,7 +19,7 @@ public class Enemy : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		player = GameObject.Find("Player");
+		player = GameObject.FindGameObjectWithTag("Player");
         anim = GetComponentInChildren<Animator>();
 		agent = GetComponent<NavMeshAgent>();
 		playerDetected = false;
@@ -31,7 +30,7 @@ public class Enemy : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision col){
-		if (col.gameObject.name == player.name) {
+		if (col.gameObject.tag == "Player") {
 			bumped = true;
 		}
 	}
@@ -131,4 +130,11 @@ public class Enemy : MonoBehaviour {
 
 		return navHit.position;
 	}
+
+    public override void BeingSucked(Vector3 suckForce)
+    {
+        base.BeingSucked(suckForce);
+
+        agent.enabled = false;
+    }
 }

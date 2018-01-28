@@ -268,6 +268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openCheckbox: 0
   doorCollider: {fileID: 65057256039932236}
+  spaceTorqueStrength: 20
   levelManager: {fileID: 0}
 --- !u!135 &135074976019396592
 SphereCollider:

@@ -4,6 +4,7 @@ public class Exit : MonoBehaviour
 {
     [SerializeField] private bool openCheckbox;
     [SerializeField] private BoxCollider doorCollider;
+    [SerializeField] private float spaceTorqueStrength;
 
     [HideInInspector] public Level levelManager;
 
@@ -31,11 +32,11 @@ public class Exit : MonoBehaviour
             return;
         }
 
-        other.gameObject.layer = LayerMask.NameToLayer("Debris");
-
-        if (other.gameObject.tag == "Player" && levelManager.levelFinished)
+        MovingObject movingObject = other.GetComponent<MovingObject>();
+        if (movingObject != null)
         {
-            Debug.Log("YOU WIN!!!!"); //TODO
+            Vector3 spaceTorque = (new Vector3(Random.value, Random.value, Random.value)).normalized * spaceTorqueStrength;
+            movingObject.EnterSpace(spaceTorque);
         }
     }
 
