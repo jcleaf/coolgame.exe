@@ -69,7 +69,6 @@ public class Player : MovingObject
 		}
         if (collision.gameObject.tag == "Beacon")
         {
-//            _body.AddForce(10 * Vector3.up, ForceMode.VelocityChange);
 			beacon = collision.gameObject.GetComponent<Beacon> ();
             beacon.Activate();
         }
