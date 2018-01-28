@@ -31,7 +31,7 @@ public class MusicLoop : MonoBehaviour {
 
 	private void Update(){
 		if (otherSoundPlaying) {
-			Src.volume = startVol * 0.5f;
+			Src.volume = startVol * 0.2f;
 		} else {
 			Src.volume = startVol;
 		}
