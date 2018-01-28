@@ -17,7 +17,8 @@ public class Enemy : MovingObject
 	public float bumpedTimer;
 	private bool bumped;
 
-    private Rigidbody rb;
+    public int damage;
+
     private float initialDrag;
 
 	// Use this for initialization
@@ -30,7 +31,6 @@ public class Enemy : MovingObject
 		timer = wanderTimer;
 		bumped = false;
 		btimer = bumpedTimer;
-        rb = GetComponent<Rigidbody>();
         initialDrag = rb.drag;
 	}
 

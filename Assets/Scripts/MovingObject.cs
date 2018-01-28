@@ -7,7 +7,7 @@ public class MovingObject : MonoBehaviour
 {
     protected bool inSpace;
 
-    private Rigidbody rb;
+    protected Rigidbody rb;
     private Billboard billboard;
     [SerializeField]
     private Transform graphics;

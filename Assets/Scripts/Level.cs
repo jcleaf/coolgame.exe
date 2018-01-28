@@ -1,6 +1,6 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 /**
  * Represents one level, so like, a map, a player, all the enemies and the
@@ -8,6 +8,8 @@ using System.Collections.Generic;
  */
 public class Level : MonoBehaviour
 {
+    private const string UI_SCENE_NAME = "UIScene";
+
     public Transform playerPrefab;
     public Transform enemyPrefab;
     public Beacon beaconPrefab;
@@ -20,6 +22,11 @@ public class Level : MonoBehaviour
 	public List<Beacon> beacons;
 
 	public bool levelFinished;
+
+    void Awake()
+    {
+        SceneManager.LoadScene(UI_SCENE_NAME, LoadSceneMode.Additive);
+    }
 
 	// Update is called once per frame
 	void Update()
@@ -77,7 +84,7 @@ public class Level : MonoBehaviour
             int index = Random.Range(0, spawnPoints.Count);
             Beacon beacon = Instantiate<Beacon>(
                 beaconPrefab,
-                spawnPoints[index].position + heightOffset + GetRandomOffset(),
+                spawnPoints[index].position + heightOffset + GetRandomOffset() - Vector3.up,
                 Quaternion.identity,
                 beaconParent);
             beacons.Add(beacon);

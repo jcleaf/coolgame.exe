@@ -15,7 +15,25 @@ public abstract class ValueReference<T, TValue> where TValue : Value<T>
 
     private bool useReferenceValue { get { return tryUseReferenceValue && referenceValue.value != null; } }
 
-    public T value { get { return useReferenceValue ? referenceValue.value : customValue; } }
+    public T value
+    {
+        get
+        {
+            return useReferenceValue ? referenceValue.value : customValue;
+        }
+
+        set
+        {
+            if (useReferenceValue)
+            {
+                referenceValue.value = value;
+            }
+            else
+            {
+                customValue = value;
+            }
+        }
+    }
 
     public static implicit operator T(ValueReference<T, TValue> r) { return r.value; }
 }
