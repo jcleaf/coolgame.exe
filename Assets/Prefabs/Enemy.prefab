@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4598167158939924}
   - component: {fileID: 212333713799234626}
-  - component: {fileID: 114747480641377474}
   - component: {fileID: 95569972156233148}
   m_Layer: 0
   m_Name: Robot Graphics
@@ -39,6 +38,7 @@ GameObject:
   - component: {fileID: 4737819935196544}
   - component: {fileID: 212236274341617960}
   - component: {fileID: 114586152700024280}
+  - component: {fileID: 114949729767774628}
   m_Layer: 0
   m_Name: Exclaim
   m_TagString: Untagged
@@ -54,6 +54,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4335493510138858}
+  - component: {fileID: 114557414559301972}
   m_Layer: 0
   m_Name: Graphics Holder
   m_TagString: Untagged
@@ -101,7 +102,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1937695764156918}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.38, y: 1, z: -4}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4335493510138858}
@@ -167,6 +168,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114557414559301972
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1871921600297326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50fbb86fdd4d3414c9db40b835d836dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Offset: 1
 --- !u!114 &114586152700024280
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -200,17 +213,18 @@ MonoBehaviour:
   wanderTimer: 1
   bumpedTimer: 1
   damage: 5
---- !u!114 &114747480641377474
+--- !u!114 &114949729767774628
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1562992807886052}
+  m_GameObject: {fileID: 1593009825399598}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50fbb86fdd4d3414c9db40b835d836dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Offset: 0
 --- !u!136 &136345414046466076
 CapsuleCollider:
   m_ObjectHideFlags: 1
