@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b94961357f04746d8ab0dbe83262fb46, type: 3}
   m_Name: LevelParams1
   m_EditorClassIdentifier: 
-  numBeacons: 4
+  numBeacons: 1
   numEnemies: 20
   tileSize: 1
   mapCol: 16

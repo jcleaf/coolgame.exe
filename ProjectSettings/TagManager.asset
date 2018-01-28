@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Beacon
   - Enemy
+  - Progression
   layers:
   - Default
   - TransparentFX

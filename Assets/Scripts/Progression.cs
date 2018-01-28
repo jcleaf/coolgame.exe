@@ -41,14 +41,20 @@ public class Progression : MonoBehaviour {
 		levelNum.value = 0;
 		LoadLevel ();
 	}
-	void LoadLevel(){
-		if (levelNum > levelParamsArray.Length) {
-			currentlevel.numEnemies += 10;
-			currentlevel.numBeacons += 1;
+    void LoadLevel()
+    {
+        if (levelNum > levelParamsArray.Length)
+        {
+            currentlevel.numEnemies += 10;
+            currentlevel.numBeacons += 1;
 
-		} else {
-			updateLevelParams (levelParamsArray [levelNum.value]);
-		}
-		SceneManager.LoadScene ("Main.unity");
-	}
-}
+        }
+        else
+        {
+            updateLevelParams(levelParamsArray[levelNum.value]);
+        }
+
+        int scene = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(scene, LoadSceneMode.Single);
+    }
+    }
