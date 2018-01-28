@@ -17,6 +17,9 @@ public class Enemy : MovingObject
 	public float bumpedTimer;
 	private bool bumped;
 
+    private Rigidbody rb;
+    private float initialDrag;
+
 	// Use this for initialization
 	void Start () {
 		player = GameObject.FindGameObjectWithTag("Player");
@@ -27,6 +30,8 @@ public class Enemy : MovingObject
 		timer = wanderTimer;
 		bumped = false;
 		btimer = bumpedTimer;
+        rb = GetComponent<Rigidbody>();
+        initialDrag = rb.drag;
 	}
 
 	void OnCollisionEnter(Collision col){
@@ -40,9 +45,13 @@ public class Enemy : MovingObject
     {
         base.Update();
 
-		// If the enemy and the player have health left...
-		if (playerDetected) {
-			agent.enabled = true;
+        if (inSpace)
+        {
+            return;
+        }
+
+        // If the enemy and the player have health left...
+        if (playerDetected && agent.enabled) {
 			if(LineOfSight(player.transform))
 			{
 				// ... set the destination of the nav mesh agent to the player.
@@ -66,10 +75,11 @@ public class Enemy : MovingObject
 			//If got bumped
 			if (bumped) {
 				agent.enabled = false;
-				Debug.Log (btimer);
+                rb.drag = 0f;
 				btimer += Time.deltaTime;
 				if (btimer >= bumpedTimer) {
-					//go back to normal, remove bumped state. wander!
+                    //go back to normal, remove bumped state. wander!
+                    rb.drag = initialDrag;
 					bumped = false;
 					agent.enabled = true;
 			      	btimer = 0;
@@ -87,7 +97,7 @@ public class Enemy : MovingObject
 	void wander(){
 		timer += Time.deltaTime;
 
-		if (timer >= wanderTimer) {
+		if (timer >= wanderTimer && agent.enabled) {
 			Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
 			agent.SetDestination(newPos);
 			timer = 0;
