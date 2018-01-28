@@ -2,18 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Scripting;
-public class Beacon : MonoBehaviour {
-	public bool activated;
-	Enemy enemy;
-	// Use this for initialization
-	void Start () {
-		activated = false;
-		enemy = null;
+public class Beacon : MonoBehaviour
+{
+	[SerializeField] private bool _activated;
+    [SerializeField] private Sprite activatedSprite;
+
+    public bool activated { get { return _activated; } }
+
+    private SpriteRenderer spriteRenderer;
+
+	void Awake ()
+    {
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 	}
 
-    void OnTriggerEnter(Collider col){
+    void OnTriggerEnter(Collider col)
+    {
         TryUpdateEnemy(col);
-
     }
 
     void OnTriggerStay(Collider col)
@@ -23,10 +28,16 @@ public class Beacon : MonoBehaviour {
 
     private void TryUpdateEnemy(Collider col)
     {
-        if (col.gameObject.tag == "Enemy" && activated)
+        if (col.gameObject.tag == "Enemy" && _activated)
         {
-            enemy = col.gameObject.GetComponent<Enemy>();
+            Enemy enemy = col.gameObject.GetComponent<Enemy>();
             enemy.playerDetected = true;
         }
+    }
+
+    public void Activate()
+    {
+        _activated = true;
+        spriteRenderer.sprite = activatedSprite;
     }
 }

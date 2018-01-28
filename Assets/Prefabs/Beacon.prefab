@@ -84,7 +84,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 348b9fca8a5dc4705b3c2726029b57c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activated: 0
+  _activated: 0
+  activatedSprite: {fileID: 21300002, guid: 5a78fe7589b674fc0be8c4e5f4426274, type: 3}
 --- !u!114 &114751969346295256
 MonoBehaviour:
   m_ObjectHideFlags: 1
