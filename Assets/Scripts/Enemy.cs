@@ -6,7 +6,6 @@ public class Enemy : MonoBehaviour {
 	GameObject player ;
 	NavMeshAgent agent;
     Animator anim;
-    Rigidbody bod;
 
 	public bool playerDetected;
 	public Vector3 lastPlayerSighting;
@@ -19,7 +18,6 @@ public class Enemy : MonoBehaviour {
 	void Start () {
 		player = GameObject.Find("Player");
         anim = GetComponentInChildren<Animator>();
-        bod = GetComponent<Rigidbody>();
 		agent = GetComponent<NavMeshAgent>();
 		playerDetected = false;
 		// Use this for initialization
@@ -59,7 +57,7 @@ public class Enemy : MonoBehaviour {
 			wander();
 		}
 
-        anim.SetFloat("MoveSpeed", bod.velocity.sqrMagnitude);
+        anim.SetFloat("MoveSpeed", agent.velocity.sqrMagnitude);
 
 	}
 	void wander(){

@@ -287,8 +287,7 @@ MonoBehaviour:
     type: 2}
   enemyPrefab: {fileID: 4527788783431600, guid: d9ec24ed729a0493fbdc38df184180a4,
     type: 2}
-  beaconPrefab: {fileID: 4401551170266662, guid: f50051a524ed44648ac2a27eeecfa361,
-    type: 2}
+  beaconPrefab: {fileID: 0}
   numEnemies: 0
   numBeacons: 0
   player: {fileID: 0}
@@ -422,7 +421,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
