@@ -8,6 +8,7 @@ public class Progression : MonoBehaviour {
 	public IntReference levelNum;
 	public LevelParameters currentlevel;
 	private static Progression instanceRef;
+	public MusicLoop _musicloop;
 	// Use this for initialization
 	void Awake () {
 		if(instanceRef == null)
@@ -18,6 +19,8 @@ public class Progression : MonoBehaviour {
 		{
 			DestroyImmediate(gameObject);
 		}
+		GameObject music = GameObject.Find("Audio Source");
+		_musicloop = music.GetComponent<MusicLoop> ();
 		updateLevelParams (levelParamsArray [levelNum.value]);
 
 	}
@@ -48,6 +51,9 @@ public class Progression : MonoBehaviour {
 		levelNum.value = 0;
 		LoadLevel ();
 	}
+	public void RestartLevel(){
+		LoadLevel ();
+	}
     void LoadLevel()
     {
         if (levelNum > levelParamsArray.Length)
@@ -63,6 +69,7 @@ public class Progression : MonoBehaviour {
 
         int scene = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(scene, LoadSceneMode.Single);
+		_musicloop.otherSoundPlaying = false;
     }
 	void OnDestroy(){
 		levelNum.value = 0;
