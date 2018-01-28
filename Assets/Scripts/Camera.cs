@@ -6,13 +6,17 @@ public class Camera : MonoBehaviour
     public GameObject player;
     public float cameraOffset;
 
-    private bool hadPlayer;
+    public bool moveToPlayer;
+
+    public Transform title;
+
     // How long the object should shake for.
 	public float shakeDuration = 0f;
 
 	// Amplitude of the shake. A larger value shakes the camera harder.
 	public float shakeAmount = 0.7f;
 	public float decreaseFactor = 1.0f;
+    private bool hadPlayer;
 	private Vector3 shakeVert;
 	private Vector3 shakeHoriz;
 
@@ -29,20 +33,24 @@ public class Camera : MonoBehaviour
             player = GameObject.FindGameObjectWithTag("Player");
         }
 
-        if (player)
+        if (player && !moveToPlayer)
+        {
+            Vector3 newPos = player.transform.position - cameraOffset * transform.forward - Vector3.forward * 200f;
+            transform.position = newPos;
+
+            if (Input.GetButtonDown("Submit"))
+            {
+                moveToPlayer = true;
+                title.SetParent(null);
+                Destroy(title.gameObject, 1f);
+            }
+        }
+
+        if (player && moveToPlayer)
         {
             Vector3 newPos = player.transform.position - cameraOffset * transform.forward;
 
-            if (hadPlayer)
-            {
-                transform.position = Vector3.Lerp(transform.position, newPos, 0.1f);
-            }
-            else
-            {
-                transform.position = newPos;
-            }
-            
-            hadPlayer = true;
+            transform.position = Vector3.Lerp(transform.position, newPos, 0.1f);
 
 			if (shakeDuration > 0) {
 				Vector2 rand = Random.insideUnitCircle * shakeAmount;
@@ -52,11 +60,5 @@ public class Camera : MonoBehaviour
 				shakeDuration -= Time.deltaTime * decreaseFactor;
 			} 
         }
-
-
 	}
-
-
-
-
 }
