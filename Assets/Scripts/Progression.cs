@@ -12,6 +12,10 @@ public class Progression : MonoBehaviour {
 	void Awake () {
 		updateLevelParams (levelParamsArray [levelNum.value]);
 		DontDestroyOnLoad (transform.gameObject);
+        if (FindObjectsOfType(GetType()).Length > 1)
+        {
+            Destroy(gameObject);
+        }
 	}
 		
 	// Update is called once per frame
