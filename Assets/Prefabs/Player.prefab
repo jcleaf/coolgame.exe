@@ -638,6 +638,7 @@ MonoBehaviour:
   DashSpeed: 20
   DashTime: 0.3
   DashCooldownTime: 0.3
+  DashInvincibleTime: 0.15
   HurtCooldownTime: 1
   WalkSfxTime: 0.2
   WalkSfxCount: 0
@@ -653,6 +654,9 @@ MonoBehaviour:
     tryUseReferenceValue: 1
     referenceValue: {fileID: 11400000, guid: 54d756556dc687c41861e2ea78ef31e3, type: 2}
     customValue: 0
+  damageVFXTime: 0.75
+  damageColor: {r: 1, g: 0.306, b: 0.306, a: 1}
+  invincibleColor: {r: 0, g: 0, b: 0, a: 0}
   state: 0
 --- !u!114 &114791489139294888
 MonoBehaviour:

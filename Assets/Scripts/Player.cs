@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Player : MovingObject
 {
 	
 	public bool dead;
-    private Rigidbody _body;
     private Animator _anim;
 	private Beacon beacon;
     private InstructionHandler instructionHandler;
@@ -13,6 +13,7 @@ public class Player : MovingObject
     public float DashSpeed = 30f;
     public float DashTime = 0.2f;
     public float DashCooldownTime = 0.5f;
+    public float DashInvincibleTime = 0.25f;
     public float HurtCooldownTime = 1f;
     public float WalkSfxTime = 0.2f;
     public float WalkSfxCount = 0;
@@ -20,6 +21,9 @@ public class Player : MovingObject
     public IntReference playerHealth;
     public BoolReference playerWonRef;
     public BoolReference beaconsLit;
+
+    public Color damageColor;
+    public Color invincibleColor;
 
     public PlayerState state;
     private float dashCount = 0;
@@ -44,6 +48,8 @@ public class Player : MovingObject
 	private AudioSource _winaudio;
 	private MusicLoop _musicloop;
 
+    private SpriteRenderer spriteRenderer;
+
 	private Camera cam;
     public enum PlayerState
     {
@@ -55,7 +61,19 @@ public class Player : MovingObject
         base.Awake();
         cam = UnityEngine.Camera.main.GetComponent<Camera> ();
 		GameObject music = GameObject.Find("Audio Source");
+
 		_musicloop = music.GetComponent<MusicLoop> ();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        _anim = GetComponentInChildren<Animator>();
+
+        AudioSource[] audio = GetComponents<AudioSource>();
+        _spacedeathaudio = audio[0];
+        _deathaudio = audio[1];
+        _hurtaudio = audio[2];
+        _walkaudio = audio[3];
+        _dashaudio = audio[4];
+        _winaudio = audio[5];
+
         playerHealth.value = 100;
         playerWonRef.value = false;
     }
@@ -63,17 +81,8 @@ public class Player : MovingObject
 	void Start()
     {
 		_spacedeath = false;
-		AudioSource[] audio =  GetComponents<AudioSource> ();
-		_spacedeathaudio = audio [0];
-		_deathaudio = audio [1];
-		_hurtaudio = audio [2];
-		_walkaudio = audio [3];
-		_dashaudio = audio [4];
-		_winaudio = audio [5];
-        _body = GetComponent<Rigidbody>();
-        _anim = GetComponentInChildren<Animator>();
-		dead = false;
-        initialDrag = GetComponent<Rigidbody>().drag;
+        dead = false;
+        initialDrag = rb.drag;
         lastInstructionPos = transform.position;
 
         instructionHandler = GameObject.Find("InstructionHandler").GetComponent<InstructionHandler>();
@@ -98,10 +107,16 @@ public class Player : MovingObject
         if (collision.gameObject.tag == "Enemy")
         {
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-            if (enemy.playerDetected && hurtCooldownCount <= 0 && gameObject.layer != LayerMask.NameToLayer("Debris"))
+            if (enemy.playerDetected &&
+                hurtCooldownCount <= 0 &&
+                dashCount <= DashInvincibleTime && 
+                gameObject.layer != LayerMask.NameToLayer("Debris"))
             {
                 playerHealth.value -= enemy.damage;
                 cam.shakeDuration = 0.5f;
+                StopAllCoroutines();
+                StartCoroutine(SpriteColor(damageColor, HurtCooldownTime));
+
                 if (playerHealth <= 0)
                 {
                     _musicloop.otherSoundPlaying = true;
@@ -111,7 +126,7 @@ public class Player : MovingObject
                     playerHealth.value = 0;
                     _anim.SetTrigger("Die");
                     // Make the player not fly around as much
-                    _body.drag = 50;
+                    rb.drag = 50;
                 }
                 else
                 {
@@ -119,6 +134,19 @@ public class Player : MovingObject
                     hurtCooldownCount = HurtCooldownTime;
                 }
             }
+        }
+    }
+
+    IEnumerator SpriteColor(Color color, float totalTime)
+    {
+        float colorTimer = 0f;
+
+        while (colorTimer < totalTime)
+        {
+            spriteRenderer.material.color = Color.Lerp(color, Color.white, colorTimer / totalTime);
+
+            colorTimer += Time.deltaTime;
+            yield return null;
         }
     }
 
@@ -150,6 +178,8 @@ public class Player : MovingObject
 					_dashaudio.Play ();
                     state = PlayerState.Dashing;
                     dashCount = DashTime; // something?
+                    StopAllCoroutines();
+                    StartCoroutine(SpriteColor(invincibleColor, DashInvincibleTime));
                 }
                 break;
 			case PlayerState.Dashing:
@@ -203,10 +233,10 @@ public class Player : MovingObject
         switch (state)
         {
             case PlayerState.Walking:
-                _body.MovePosition(_body.position + moveDir * Speed * Time.fixedDeltaTime);
+                rb.MovePosition(rb.position + moveDir * Speed * Time.fixedDeltaTime);
                 break;
             case PlayerState.Dashing:
-                _body.MovePosition(_body.position + dashDir * DashSpeed * Time.fixedDeltaTime);
+                rb.MovePosition(rb.position + dashDir * DashSpeed * Time.fixedDeltaTime);
                 break;
         }
     }
