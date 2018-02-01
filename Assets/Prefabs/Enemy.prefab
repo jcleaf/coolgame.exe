@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4598167158939924}
   - component: {fileID: 212333713799234626}
   - component: {fileID: 95569972156233148}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Robot Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 212236274341617960}
   - component: {fileID: 114586152700024280}
   - component: {fileID: 114949729767774628}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Exclaim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4335493510138858}
   - component: {fileID: 114557414559301972}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Graphics Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 195478198967710184}
   - component: {fileID: 54703692038996100}
   - component: {fileID: 82155390308719834}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -295,6 +295,7 @@ MonoBehaviour:
   bumpedTimer: 1
   damage: 33
   pushedStrength: 5
+  pushOffWallForce: 5
 --- !u!114 &114949729767774628
 MonoBehaviour:
   m_ObjectHideFlags: 1

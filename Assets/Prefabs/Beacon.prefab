@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4209506887183450}
   - component: {fileID: 212775397735100842}
   - component: {fileID: 114751969346295256}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Beacon Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4307997724675972}
   - component: {fileID: 212988698849227344}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 114552415219434664}
   - component: {fileID: 135363222639018748}
   - component: {fileID: 82288157859238954}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Beacon
   m_TagString: Beacon
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4661099704605344}
   - component: {fileID: 212153235060635866}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Beam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4731917403082810}
   - component: {fileID: 135800287097048880}
   - component: {fileID: 114077856177499480}
-  m_Layer: 11
+  m_Layer: 16
   m_Name: InstructionBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}

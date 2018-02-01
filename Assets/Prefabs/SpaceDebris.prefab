@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4264261416456790}
   - component: {fileID: 198930293173780650}
   - component: {fileID: 199678420973689228}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: SpaceDebris
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4166080696068556}
   - component: {fileID: 198357168665303192}
   - component: {fileID: 199128879793794130}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: SpaceDebris
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4105486215069120}
   - component: {fileID: 198760218956761570}
   - component: {fileID: 199269919530899230}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: SpaceDebris
   m_TagString: Untagged
   m_Icon: {fileID: 0}

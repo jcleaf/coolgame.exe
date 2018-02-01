@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4242701230654656}
   - component: {fileID: 212336506752443104}
   - component: {fileID: 95159490867784758}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4827614951760276}
   - component: {fileID: 114791489139294888}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Graphics Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 82171549550307314}
   - component: {fileID: 82810094734393056}
   - component: {fileID: 82280520295792734}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}

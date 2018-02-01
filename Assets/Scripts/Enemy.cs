@@ -26,29 +26,47 @@ public class Enemy : MovingObject
     private bool dashed;
     private Vector3 playerSpot;
 
+    public float pushOffWallForce;
     private float initialDrag;
 
-	// Use this for initialization
-	void Start () {
-		player = GameObject.FindGameObjectWithTag("Player");
+    protected override void Awake()
+    {
+        base.Awake();
         anim = GetComponentInChildren<Animator>();
-		agent = GetComponent<NavMeshAgent>();
+        agent = GetComponent<NavMeshAgent>();
+        _playerDetectedAudio = GetComponent<AudioSource>();
+    }
+
+	void Start ()
+    {
+		player = GameObject.FindGameObjectWithTag("Player");
+        
 		playerDetected = false;
-		// Use this for initialization
 		timer = wanderTimer;
 		bumped = false;
 		btimer = bumpedTimer;
         initialDrag = rb.drag;
-		_playerDetectedAudio = GetComponent<AudioSource> ();
 		sighted = false;
 	}
 
-	void OnCollisionEnter(Collision col){
-		if (col.gameObject.tag == "Player") {
-            playerSpot = col.transform.position;
-			bumped = true;
-            dashed = col.gameObject.GetComponent<Player>().state == Player.PlayerState.Dashing;
-		}
+	void OnCollisionEnter(Collision col)
+    {
+        string layerName = LayerMask.LayerToName(col.gameObject.layer);
+        switch (layerName)
+        {
+            case "Player":
+                playerSpot = col.transform.position;
+                bumped = true;
+                dashed = col.gameObject.GetComponent<Player>().state == Player.PlayerState.Dashing;
+                break;
+            case "Walls":
+                if (!agent.enabled)
+                {
+                    Vector3 dir = col.contacts[0].normal;
+                    rb.AddForce(dir * pushOffWallForce, ForceMode.Impulse);
+                }
+                break;
+        }
 	}
 
 	// Update is called once per frame

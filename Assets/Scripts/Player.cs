@@ -50,10 +50,10 @@ public class Player : MovingObject
         Walking, Dashing
     }
 
-    void Awake()
+    protected override void Awake()
     {
-		cam = UnityEngine.Camera.main.GetComponent<Camera> ();
         base.Awake();
+        cam = UnityEngine.Camera.main.GetComponent<Camera> ();
 		GameObject music = GameObject.Find("Audio Source");
 		_musicloop = music.GetComponent<MusicLoop> ();
         playerHealth.value = 100;

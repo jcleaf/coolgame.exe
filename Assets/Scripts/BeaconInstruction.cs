@@ -17,36 +17,27 @@ public class BeaconInstruction : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // Try update instruction
-        if (other.gameObject.tag == "Player")
-        {
-            instructionHandler.AddBeaconInstruction(beacon.activated ? 1 : 0, transform.position);
-        }
+        instructionHandler.AddBeaconInstruction(beacon.activated ? 1 : 0, transform.position);
     }
 
     private void OnTriggerStay(Collider other)
     {
         // Try update instruction
-        if (other.gameObject.tag == "Player")
+        if (lastOpenStatus != beacon.activated)
         {
-            if (lastOpenStatus != beacon.activated)
-            {
-                instructionHandler.AddBeaconInstruction(beacon.activated ? 1 : 0, transform.position);
-                lastOpenStatus = beacon.activated;
-            }
+            instructionHandler.AddBeaconInstruction(beacon.activated ? 1 : 0, transform.position);
+            lastOpenStatus = beacon.activated;
         }
     }
 
     void OnTriggerExit(Collider other)
     {
         // Instructions
-        if (other.gameObject.tag == "Player")
+        if (beacon.activated)
         {
-            if (beacon.activated)
-            {
-                // Somewhat ugly hack to make it so that it doesn't show stuff again.
-                instructionHandler.AddBeaconInstruction(2, transform.position);
-            }
-            instructionHandler.ClearBeaconInstruction();
+            // Somewhat ugly hack to make it so that it doesn't show stuff again.
+            instructionHandler.AddBeaconInstruction(2, transform.position);
         }
+        instructionHandler.ClearBeaconInstruction();
     }
 }
