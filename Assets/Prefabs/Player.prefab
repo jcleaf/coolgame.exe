@@ -654,9 +654,8 @@ MonoBehaviour:
     tryUseReferenceValue: 1
     referenceValue: {fileID: 11400000, guid: 54d756556dc687c41861e2ea78ef31e3, type: 2}
     customValue: 0
-  damageVFXTime: 0.75
   damageColor: {r: 1, g: 0.306, b: 0.306, a: 1}
-  invincibleColor: {r: 0, g: 0, b: 0, a: 0}
+  invincibleColor: {r: 0.34100002, g: 1, b: 0.48188964, a: 1}
   state: 0
 --- !u!114 &114791489139294888
 MonoBehaviour:
